@@ -32,7 +32,8 @@ function ConfigEntry({ config, onAmountChange }: ConfigEntryProps) {
   };
 
   const sizeVariant = config.variants.find(
-    (variant) => variant.name === "Groesse"
+    // TODO: evil hack
+    (variant) => variant.name === "Groesse" || variant.name === "Größe"
   );
   const size = sizeVariant?.variants.find(
     (variant) => variant.id === sizeVariant.defaultVariantId

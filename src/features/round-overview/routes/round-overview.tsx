@@ -15,7 +15,8 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import type { SortedRound, UnpreparedRound } from "../types";
-import { useState } from "react";
+import React, { useState } from "react";
+import { queryClient } from "../../../utils/query-client";
 
 function fetchOpenRounds({
   signal,
@@ -40,17 +41,28 @@ function fetchOpenRounds({
             {} as SortedRound["orderedItemsByCategory"]
           ),
         }))
-        .sort((a, b) => new Date(a.orderedAt).getTime() - new Date(b.orderedAt).getTime())
+        .sort(
+          (a, b) =>
+            new Date(a.orderedAt).getTime() - new Date(b.orderedAt).getTime()
+        )
     );
 }
 
 function updateMarkRoundAsPrepared(roundId: number) {
   return fetch(`/api/round/${roundId}/state`, {
-    method: 'put',
+    method: "put",
     body: JSON.stringify({ state: "PREPARED" }),
     headers: {
-      'content-type': 'application/json'
-    }
+      "content-type": "application/json",
+    },
+  });
+}
+
+function formatShortDate(date: Date): string {
+  return date.toLocaleString("de-De", {
+    minute: "numeric",
+    hour: "numeric",
+    second: "numeric",
   });
 }
 
@@ -60,27 +72,37 @@ const OrderedItemTypography = styled(Typography)`
 
 const OrderedItemGrid = styled(Box)`
   display: grid;
-  grid-template: "amount name variants options" ". comment comment comment" / max-content max-content max-content;
+  grid-template: "amount name options" ". variants variants" ". comment comment" / minmax(
+      0,
+      max-content
+    ) minmax(0, 1fr) minmax(0, max-content) minmax(0, auto);
   column-gap: 4px;
+  white-space: pre-wrap;
 `;
+
+const outletProps = { maxWidth: false } as const;
 
 function RoundOverview() {
   // We can set this right away because this component suspends when running the query.
   const [lastSuccessfulRefreshTime, setLastSuccessfulRefreshTime] =
-    useState<string>(new Date().toLocaleString("de-De"));
+    useState<string>(formatShortDate(new Date()));
+
 
   const { data } = useQuery({
     queryKey: ["round-overview"],
     queryFn: fetchOpenRounds,
     refetchInterval: 5000,
     onSuccess: () => {
-      setLastSuccessfulRefreshTime(new Date().toLocaleString("de-De"));
+      setLastSuccessfulRefreshTime(formatShortDate(new Date()));
     },
   });
   const rounds = data!;
 
   const { mutate: markRoundAsPrepared } = useMutation({
     mutationFn: updateMarkRoundAsPrepared,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["round-overview"]);
+    },
   });
 
   const elements = rounds.map((round) => (
@@ -116,7 +138,7 @@ function RoundOverview() {
                   <OrderedItemTypography gridArea="amount" fontWeight="bold">
                     {orderedItem.amount}x
                   </OrderedItemTypography>
-                  <OrderedItemTypography gridArea="name">
+                  <OrderedItemTypography fontWeight="bold" gridArea="name">
                     {orderedItem.name}
                   </OrderedItemTypography>
                   <OrderedItemTypography gridArea="comment" fontStyle="italic">
@@ -124,8 +146,10 @@ function RoundOverview() {
                   </OrderedItemTypography>
                   <OrderedItemTypography gridArea="variants">
                     {orderedItem.variants.reduce(
-                      (previousValue, currentValue) =>
-                        `${previousValue} - ${currentValue.name}`,
+                      (previousValue, currentValue, currentIndex) =>
+                        currentIndex === 0
+                          ? currentValue.name
+                          : `${previousValue} - ${currentValue.name}`,
                       ""
                     )}
                   </OrderedItemTypography>
@@ -149,7 +173,7 @@ function RoundOverview() {
   ));
 
   return (
-    <BaseLayout title="Bestellübersicht">
+    <BaseLayout title="Bestellübersicht" outletProps={outletProps}>
       <Typography variant="h2" fontWeight="bold">
         Offene Bestellungen: {rounds.length}
       </Typography>

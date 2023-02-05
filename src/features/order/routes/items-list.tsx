@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { Item } from "../types/item";
 import { Link as RouterLink } from "react-router-dom";
 import Fuse from "fuse.js";
@@ -20,6 +20,10 @@ function ItemsList({ searchTerm, items }: ItemsListProps) {
   const targetList = searchTerm
     ? fuse.search(searchTerm).map(({ item }) => item as Item)
     : items;
+
+  if (!targetList.length) {
+    return <Typography textAlign="center">Kein Ergebnis gefunden.</Typography>
+  }
 
   const itemElements = targetList.map((item) => (
     <Button

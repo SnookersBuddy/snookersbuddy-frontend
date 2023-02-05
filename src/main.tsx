@@ -8,8 +8,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "./providers";
 import { Landing } from "./features/landing";
 import { OrderRoutes } from "./features/order";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { RoundOverview } from "./features/round-overview";
+import { queryClient } from "./utils/query-client";
 
 const router = createBrowserRouter([
   {
@@ -26,21 +27,12 @@ const router = createBrowserRouter([
   },
 ]);
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      suspense: true,
-      staleTime: Infinity,
-    },
-  },
-});
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <ThemeProvider>
-      <QueryClientProvider client={queryClient}>
-        <Suspense fallback="Laden...">
-          <RouterProvider router={router} />
-        </Suspense>
-      </QueryClientProvider>
-    </ThemeProvider>
+  <ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <Suspense fallback="Laden...">
+        <RouterProvider router={router} />
+      </Suspense>
+    </QueryClientProvider>
+  </ThemeProvider>
 );

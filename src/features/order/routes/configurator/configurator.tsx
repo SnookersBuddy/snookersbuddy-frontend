@@ -66,12 +66,12 @@ function Configurator() {
   const navigate = useNavigate();
   const saveConfigurationToBasket = (data: Configuration) => {
     upsertConfigurationFor(+assignmentId, data);
-    navigate("..")
+    navigate("..");
   };
 
   const decrementAmount = () => {
     const currentAmount = formValues.getValues("amount");
-    if (currentAmount > 0) {
+    if (currentAmount > 1) {
       formValues.setValue("amount", currentAmount - 1);
     }
   };
@@ -85,6 +85,9 @@ function Configurator() {
       <FormProvider {...formValues}>
         <form onSubmit={formValues.handleSubmit(saveConfigurationToBasket)}>
           <Stack spacing={2}>
+            <Typography textAlign="center" variant="h4">
+              {configuration!.item.itemName}
+            </Typography>
             <Box>
               <Typography textTransform="uppercase">Basis-Varianten</Typography>
               <Variants />
@@ -107,6 +110,7 @@ function Configurator() {
                   render={({ field }) => (
                     <TextField
                       sx={textFieldWithoutArrayStyles}
+                      fullWidth
                       type="number"
                       {...field}
                     />

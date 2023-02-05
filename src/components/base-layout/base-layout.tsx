@@ -1,11 +1,10 @@
 import { ReactNode, Suspense } from "react";
 import {
   AppBar,
-  Box,
-  BoxProps,
-  Button,
-  Container, IconButton,
-  Typography
+  Container,
+  ContainerProps,
+  IconButton,
+  Typography,
 } from "@mui/material";
 import { Link as RouterLink, useMatch } from "react-router-dom";
 import { theme } from "../../lib";
@@ -14,7 +13,7 @@ import { Home } from "@mui/icons-material";
 type BaseLayoutProps = {
   title: string;
   children: ReactNode;
-  outletProps?: BoxProps;
+  outletProps?: ContainerProps;
 };
 
 function BaseLayout({ title, children, outletProps = {} }: BaseLayoutProps) {
@@ -44,13 +43,18 @@ function BaseLayout({ title, children, outletProps = {} }: BaseLayoutProps) {
               transform: "translateY(-50%)",
             }}
           >
-            <Home/>
+            <Home />
           </IconButton>
         )}
       </AppBar>
-      <Box component="main" sx={{ m: 2, ...sx }} {...outletPropsRest}>
+      <Container
+        component="main"
+        maxWidth="sm"
+        sx={{ mt: theme.spacing(3), ...sx }}
+        {...outletPropsRest}
+      >
         <Suspense fallback="Laden...">{children}</Suspense>
-      </Box>
+      </Container>
     </>
   );
 }
