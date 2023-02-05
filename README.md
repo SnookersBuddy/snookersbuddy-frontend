@@ -71,7 +71,7 @@ just image=my-image-name:tag run-image
 
 **Run `just help` (or simply `just`) to get an overview over all args.**
 
-Every parameter *after* the image tag is passed to the `docker run` command:
+Every parameter *after* the recipe is passed to the `docker run` command:
 
 ```shell
 just image=my-image-name:tag run-image --volume=...
