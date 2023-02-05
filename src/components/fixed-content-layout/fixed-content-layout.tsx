@@ -34,7 +34,10 @@ function FixedContentLayout({
 
   return (
     <FixedContentWrapper>
-      <AppBar sx={{ py: 1, backgroundColor: "primary.main" }} position="relative">
+      <AppBar
+        sx={{ py: 1, backgroundColor: "primary.main" }}
+        position="relative"
+      >
         <Container maxWidth="xs">
           <Typography textAlign="center" variant="h6">
             {title}
@@ -56,13 +59,19 @@ function FixedContentLayout({
           </IconButton>
         )}
       </AppBar>
-      <Box sx={{ p: 2 }}>{header}</Box>
-      <Box component="main" sx={{ p: 2, overflow: "scroll" }}>
+      <Container maxWidth="sm" sx={{ mt: 2 }}>
+        {header}
+      </Container>
+      <Container
+        component="main"
+        maxWidth="sm"
+        sx={{ mt: 2, overflowY: "scroll" }}
+      >
         {content}
-      </Box>
-      <Box component="footer" sx={{ p: 2 }}>
+      </Container>
+      <Container component="footer" maxWidth="sm" sx={{ my: 2 }}>
         {footer}
-      </Box>
+      </Container>
     </FixedContentWrapper>
   );
 }
