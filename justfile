@@ -6,6 +6,7 @@ bold := '$(tput bold)'
 normal := '$(tput sgr0)'
 
 image := "snookersbuddy/snookersbuddy-frontend:local"
+container_name := "snookersbuddy-frontend"
 
 backend_host := "backend:28080"
 backend_network := "snookersbuddy-local"
@@ -35,6 +36,6 @@ run-image *run_args="": build-image
 
     echo "{{bold}}Using backend host {{backend_host}}.{{normal}}"
 
-    {{container_cmd}} run --rm -p "8157:80" --network={{backend_network}} -e "BACKEND_HOST={{backend_host}}" {{run_args}} {{image}}
+    {{container_cmd}} run --rm -p "8157:80" --name={{container_name}} --network={{backend_network}} -e "BACKEND_HOST={{backend_host}}" {{run_args}} {{image}}
 
 default: help
