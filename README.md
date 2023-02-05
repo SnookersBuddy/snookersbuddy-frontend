@@ -63,20 +63,19 @@ just run-image
 ```
 
 which will build the image with a default image name and tag and then runs that image on a default port (8157).
-You can specify the image name as Just recipe parameter:
+You can specify the image name as a Just variable:
 
 ```shell
-just run-image my-image-name:tag
+just image=my-image-name:tag run-image
 ```
+
+**Run `just help` (or simply `just`) to get an overview over all args.**
 
 Every parameter *after* the image tag is passed to the `docker run` command:
 
 ```shell
-just run-image my-image-name:tag --env BACKEND_HOST=dev.ourcompany.com -p "8200:80" # 80 is the container port..
+just image=my-image-name:tag run-image --volume=...
 ```
-
-Unfortunately, you have the supply the image name before passing any additional parameters.
-
 
 ### Usage without Just
 
