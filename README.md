@@ -20,12 +20,12 @@ The next section describes why Caddy is needed and why it is preferred over e.g.
 
 ### Caddy to serve the frontend
 
-The frontend build produces static assets which is good (we don't want to host a Node server that renders the app 
-for us). But those static assets need to be served via a production grade http/web server. Some come to mind here: 
+The frontend build produces static assets which is good (we don't want to host a Node server that renders the app
+for us). But those static assets need to be served via a production grade http/web server. Some come to mind here:
 nginx, Traefik, Caddy, Apache, Lighttpd...
 
-Caddy is just easy to set up, has a really easy to understand config file and is fast enough for most needs. Still 
-it is 
+Caddy is just easy to set up, has a really easy to understand config file and is fast enough for most needs. Still
+it is
 sophisticated enough, to support reverse proxying the backend for our frontend.
 When doing requests on the frontend, the question often is, which url I should request against. If the backend server
 is on the same machine as the frontend server, you can simply request against localhost but that is not possible when
