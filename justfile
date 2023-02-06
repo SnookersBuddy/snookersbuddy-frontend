@@ -14,7 +14,7 @@ backend_network := "snookersbuddy-local"
     echo "{{bold}}image{{normal}} - the image name (optional)"
     echo "{{bold}}backend_host{{normal}} - the backend host (optional)"
     echo "{{bold}}backend_network{{normal}} - the container runtime network used to connect to the backend host (optional) (not needed when backend is running in host network)"
-    echo "\n{{bold}}Usage{{normal}}: just image=... <recipe-name>\n"
+    printf "\n{{bold}}Usage{{normal}}: just image=... <recipe-name>\n\n"
     just --list
 
 @build-image:
