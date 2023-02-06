@@ -77,6 +77,11 @@ Every parameter *after* the recipe is passed to the `docker run` command:
 just image=my-image-name:tag run-image --volume=...
 ```
 
+To run against an uncontainerized backend a special host can be used:
+
+1. Podman: `just backend_host=host.containers.internal:28080 run-image`
+2. Docker: `just backend_host=docker.host.internal:28080 run-image`
+
 ### Usage without Just
 
 Simply open the *justfile* and copy the command and paste it into your terminal.
