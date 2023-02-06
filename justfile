@@ -1,10 +1,12 @@
 root := justfile_directory()
-docker_dir := join(root, "docker")
+container_dir := join(root, "docker")
+container_cmd := if `whereis podman` =~ "/podman" { "podman" } else { "docker" }
 
 bold := '$(tput bold)'
 normal := '$(tput sgr0)'
 
 image := "snookersbuddy/snookersbuddy-frontend:local"
+container_name := "snookersbuddy-frontend"
 
 backend_host := "backend:28080"
 backend_network := "snookersbuddy-local"
@@ -18,22 +20,22 @@ backend_network := "snookersbuddy-local"
     just --list
 
 @build-image:
-    echo "{{bold}}Building docker image with name {{image}}.{{normal}}"
-    docker build . -t {{image}} -f {{docker_dir}}/Dockerfile
+    echo "{{bold}}Building {{container_cmd}} image with name {{image}}.{{normal}}"
+    {{container_cmd}} build . -t {{image}} -f {{container_dir}}/Dockerfile
 
 run-image *run_args="": build-image
     #!/usr/bin/env sh
-    echo "{{bold}}Running docker image with name {{image}}.{{normal}}"
+    echo "{{bold}}Running {{container_cmd}} image with name {{image}}.{{normal}}"
 
     # Create bridged network for communication to potential containerised backend.
-    docker network inspect snookersbuddy-local >/dev/null 2>&1
+    {{container_cmd}} network inspect snookersbuddy-local >/dev/null 2>&1
     if [ ! $? -eq 0 ] ; then
         echo "{{bold}}Creating bridged network "snookersbuddy-local".{{normal}}"
-        docker network create --driver bridge snookersbuddy-local
+        {{container_cmd}} network create --driver bridge snookersbuddy-local
     fi
 
     echo "{{bold}}Using backend host {{backend_host}}.{{normal}}"
 
-    docker run --rm -p "8157:80" --network={{backend_network}} -e "BACKEND_HOST={{backend_host}}" {{run_args}} {{image}}
+    {{container_cmd}} run --rm -p "8157:80" --name={{container_name}} --network={{backend_network}} -e "BACKEND_HOST={{backend_host}}" {{run_args}} {{image}}
 
 default: help
