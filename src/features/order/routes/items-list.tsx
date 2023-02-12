@@ -17,6 +17,7 @@ type ItemsListProps = {
 function ItemsList({ searchTerm, items }: ItemsListProps) {
   const fuse = useMemo(() => new Fuse(items, FUSE_OPTIONS), [items]);
 
+  // If the search term is an empty string return the whole list otherwise filter.
   const targetList = searchTerm
     ? fuse.search(searchTerm).map(({ item }) => item as Item)
     : items;

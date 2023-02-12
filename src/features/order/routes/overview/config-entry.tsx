@@ -1,15 +1,9 @@
-import {
-  Box,
-  Button,
-  Chip,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import { theme } from "../../../../lib";
 import { Configuration } from "../../types/configuration";
-import { useState, MouseEvent } from "react";
+import { useState } from "react";
+import AmountEditor from "./amount-editor";
+import ConfigEntryOptions from "./config-entry-options";
 
 type ConfigEntryProps = {
   config: Configuration;
@@ -19,13 +13,11 @@ type ConfigEntryProps = {
 function ConfigEntry({ config, onAmountChange }: ConfigEntryProps) {
   const [isEditing, setIsEditing] = useState(false);
 
-  const incrementAmount = (e: MouseEvent) => {
-    e.stopPropagation();
+  const incrementAmount = () => {
     onAmountChange(config.amount + 1);
   };
 
-  const decrementAmount = (e: MouseEvent) => {
-    e.stopPropagation();
+  const decrementAmount = () => {
     if (config.amount > 0) {
       onAmountChange(config.amount - 1);
     }
@@ -50,16 +42,6 @@ function ConfigEntry({ config, onAmountChange }: ConfigEntryProps) {
         }
       </Box>
     ));
-
-  const options = config.options.map((option) => (
-    <Grid key={option.name} item xs="auto">
-      <Chip
-        sx={{ p: 0, color: "black" }}
-        label={option.name}
-        color={option.defaultValue ? "success" : "error"}
-      />
-    </Grid>
-  ));
 
   return (
     <Stack
@@ -86,9 +68,7 @@ function ConfigEntry({ config, onAmountChange }: ConfigEntryProps) {
               {remainingVariants}
             </Grid>
             <Grid item xs>
-              <Grid container spacing={1} direction="row-reverse">
-                {options}
-              </Grid>
+              <ConfigEntryOptions options={config.options} />
             </Grid>
           </Grid>
           {config.comment && (
@@ -99,22 +79,10 @@ function ConfigEntry({ config, onAmountChange }: ConfigEntryProps) {
       {isEditing && (
         <>
           <Divider />
-          <Stack direction="row" spacing={1}>
-            <Button
-              sx={{ width: "100%" }}
-              variant="contained"
-              onClick={decrementAmount}
-            >
-              -
-            </Button>
-            <Button
-              sx={{ width: "100%" }}
-              variant="contained"
-              onClick={incrementAmount}
-            >
-              +
-            </Button>
-          </Stack>
+          <AmountEditor
+            onDecrement={decrementAmount}
+            onIncrement={incrementAmount}
+          />
         </>
       )}
     </Stack>

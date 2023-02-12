@@ -1,11 +1,10 @@
-import { useParams } from "react-router-dom";
 import { invariant } from "../../../utils/invariant";
 import { useAssignmentsQuery } from "./use-assignments-query";
 import { Assignment } from "../types/assignment";
+import { useStrongParams } from "../../../hooks/use-strong-params";
 
 export function useActiveAssignment(): Assignment {
-  const { assignmentId } = useParams();
-  invariant(assignmentId, "assignmentId must be set in the params");
+  const { assignmentId } = useStrongParams("assignmentId");
 
   const { data } = useAssignmentsQuery();
   const assignment = data!.find(

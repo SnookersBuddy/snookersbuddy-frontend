@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import { Configuration, Option, Variant } from "../types/configuration";
 import produce from "immer";
 import { devtools } from "zustand/middleware";
@@ -97,7 +97,10 @@ function mustReplaceMatchingConfiguration(
   newConfig: Configuration
 ) {
   const idx = findMatchingConfigIndex(existingConfigs, newConfig);
-  invariant(idx >= 0, "Tried to update configuration that is not part of round");
+  invariant(
+    idx >= 0,
+    "Tried to update configuration that is not part of round"
+  );
   existingConfigs[idx] = newConfig;
 }
 
