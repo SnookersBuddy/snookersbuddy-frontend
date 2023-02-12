@@ -4,64 +4,24 @@ import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import ConfigEntry from "./config-entry";
 import { Configuration } from "../../types/configuration";
 import { ChevronRight } from "@mui/icons-material";
-import { useMutation } from "@tanstack/react-query";
-import { OrderedItem } from "../../types/item";
 import { useNavigate } from "react-router-dom";
-
-type Round = {
-  assignmentId: number;
-  orderedItems: OrderedItem[];
-};
-
-function createRound({ assignmentId, orderedItems }: Round) {
-  const url = `/api/assignment/${assignmentId}/current-order/round`;
-  return fetch(url, {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(orderedItems),
-  });
-}
+import { useCreateRoundMutation } from "../../hooks/use-create-round-mutation";
+import { mapConfigsToRound } from "../../utils/map-configs-to-round";
 
 function Overview() {
   const { configs, assignment, replaceConfig, resetAssignment } =
     useActiveRoundState();
 
   const navigate = useNavigate();
-  const { mutate, isLoading } = useMutation({
-    mutationFn: createRound,
+  const { mutate, isLoading } = useCreateRoundMutation({
     onSuccess: () => {
       navigate("/assignments");
       resetAssignment(assignment.id);
     },
   });
-  const submitBasket = () => {
-    const items = configs
-      .map((itemConfig) => {
-        // Only pull the selected variants (SingleVariant) from each variant group (Variant).
-        const chosenVariants = itemConfig.variants.map(
-          (group) =>
-            group.variants.find(
-              (variant) => variant.id === group.defaultVariantId
-            )!
-        );
 
-        // We use ALL options (regardless of selected or not) because the waiter needs to know whether to include something or not.
-        // If e.g. ice is the default for Cola and the waiter deselects it then in the big overview the deselected won't show.
-        const chosenOptions = itemConfig.options;
-        const comment = itemConfig.comment;
-        const amount = itemConfig.amount;
-        return {
-          item: itemConfig.item,
-          chosenVariants,
-          chosenOptions,
-          comment,
-          amount,
-        };
-      })
-      .filter((config) => config.amount != 0);
-    mutate({ assignmentId: assignment.id, orderedItems: items });
+  const submitBasket = () => {
+    mutate(mapConfigsToRound(configs, assignment.id));
   };
 
   const updateAmount = (config: Configuration) => (newAmount: number) => {

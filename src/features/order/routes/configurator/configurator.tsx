@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -7,30 +7,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
 import { Configuration } from "../../types/configuration";
-import { invariant } from "../../../../utils/invariant";
 import { BaseLayout } from "../../../../components";
 import { FormProvider, useForm } from "react-hook-form";
 import { ChevronRight } from "@mui/icons-material";
 import Variants from "./variants";
 import Options from "./options";
 import {
-  TransformController,
-  ValueTransformer,
+  positiveNumberTransformer,
+  TransformController
 } from "../../../../components/transform-controller";
-import { ChangeEvent } from "react";
 import { useRoundState } from "../../state/round";
-
-const positiveNumberTransformer: ValueTransformer<number> = {
-  toInput: (value) => value.toString(),
-  toOutput: (outputRaw) => {
-    const event = outputRaw as ChangeEvent<HTMLInputElement>;
-    const output = Number.parseInt(event.target.value, 10);
-    // Only return output if it's a positive number.
-    return isNaN(output) ? 0 : output < 0 ? 0 : output;
-  },
-};
+import useConfigurationQuery from "../../hooks/use-configuration-query";
+import { useStrongParams } from "../../../../hooks/use-strong-params";
 
 const textFieldWithoutArrayStyles: SxProps = {
   "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button": {
@@ -44,19 +33,10 @@ const textFieldWithoutArrayStyles: SxProps = {
   },
 };
 
-function getConfiguration(itemId: string): Promise<Configuration> {
-  return fetch(`/api/item/${itemId}/configuration`).then((res) => res.json());
-}
-
 function Configurator() {
-  const { assignmentId, itemId } = useParams();
-  invariant(assignmentId, "assignmentId must be set in the params");
-  invariant(itemId, "itemId must be set in the params");
+  const { assignmentId, itemId } = useStrongParams("assignmentId", "itemId");
 
-  const { data: configuration } = useQuery({
-    queryKey: ["configurator", itemId],
-    queryFn: () => getConfiguration(itemId),
-  });
+  const { data: configuration } = useConfigurationQuery(itemId);
 
   const formValues = useForm({
     defaultValues: configuration,

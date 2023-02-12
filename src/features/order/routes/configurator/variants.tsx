@@ -12,10 +12,7 @@ import {
   numberTransformer,
   TransformController,
 } from "../../../../components/transform-controller";
-
-function idSort<T extends { id: number }>(a: T, b: T): number {
-  return a.id - b.id;
-}
+import { idSort } from "../../../../utils/id-sort";
 
 function Variants() {
   const { getValues, control } = useFormContext<Configuration>();
@@ -48,7 +45,11 @@ function Variants() {
     </FormControl>
   ));
 
-  return <Stack spacing={1} mt={0.5}>{variantElements}</Stack>;
+  return (
+    <Stack spacing={1} mt={0.5}>
+      {variantElements}
+    </Stack>
+  );
 }
 
 export default Variants;

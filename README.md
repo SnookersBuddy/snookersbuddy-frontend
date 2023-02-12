@@ -20,12 +20,12 @@ The next section describes why Caddy is needed and why it is preferred over e.g.
 
 ### Caddy to serve the frontend
 
-The frontend build produces static assets which is good (we don't want to host a Node server that renders the app 
-for us). But those static assets need to be served via a production grade http/web server. Some come to mind here: 
+The frontend build produces static assets which is good (we don't want to host a Node server that renders the app
+for us). But those static assets need to be served via a production grade http/web server. Some come to mind here:
 nginx, Traefik, Caddy, Apache, Lighttpd...
 
-Caddy is just easy to set up, has a really easy to understand config file and is fast enough for most needs. Still 
-it is 
+Caddy is just easy to set up, has a really easy to understand config file and is fast enough for most needs. Still
+it is
 sophisticated enough, to support reverse proxying the backend for our frontend.
 When doing requests on the frontend, the question often is, which url I should request against. If the backend server
 is on the same machine as the frontend server, you can simply request against localhost but that is not possible when
@@ -63,20 +63,24 @@ just run-image
 ```
 
 which will build the image with a default image name and tag and then runs that image on a default port (8157).
-You can specify the image name as Just recipe parameter:
+You can specify the image name as a Just variable:
 
 ```shell
-just run-image my-image-name:tag
+just image=my-image-name:tag run-image
 ```
 
-Every parameter *after* the image tag is passed to the `docker run` command:
+**Run `just help` (or simply `just`) to get an overview over all args.**
+
+Every parameter *after* the recipe is passed to the `docker run` command:
 
 ```shell
-just run-image my-image-name:tag --env BACKEND_HOST=dev.ourcompany.com -p "8200:80" # 80 is the container port..
+just image=my-image-name:tag run-image --volume=...
 ```
 
-Unfortunately, you have the supply the image name before passing any additional parameters.
+To run against an uncontainerized backend a special host can be used:
 
+1. Podman: `just backend_host=host.containers.internal:28080 run-image`
+2. Docker: `just backend_host=docker.host.internal:28080 run-image`
 
 ### Usage without Just
 
