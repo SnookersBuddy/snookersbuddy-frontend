@@ -10,6 +10,7 @@ import { Landing } from "./features/landing";
 import { OrderRoutes } from "./features/order";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { RoundOverview } from "./features/round-overview";
+import { Admin } from "./features/admin";
 import { queryClient } from "./utils/query-client";
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
     path: "/round-overview",
     element: <RoundOverview />,
   },
+  {
+    path: "/admin",
+    element: <Admin />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
