@@ -14,9 +14,10 @@ type BaseLayoutProps = {
   title: string;
   children: ReactNode;
   outletProps?: ContainerProps;
+  maxWidth?: "sm" | "s" | "m";
 };
 
-function BaseLayout({ title, children, outletProps = {} }: BaseLayoutProps) {
+function BaseLayout({ title, children, outletProps = {}, maxWidth = "sm" }: BaseLayoutProps) {
   const { sx, ...outletPropsRest } = outletProps;
   const isAnwendungsauswahl = useMatch("/");
 
@@ -26,7 +27,7 @@ function BaseLayout({ title, children, outletProps = {} }: BaseLayoutProps) {
         sx={{ py: 1, backgroundColor: "primary.main" }}
         position="relative"
       >
-        <Container maxWidth="xs">
+        <Container maxWidth={"xs"}>
           <Typography textAlign="center" variant="h6">
             {title}
           </Typography>
@@ -49,7 +50,7 @@ function BaseLayout({ title, children, outletProps = {} }: BaseLayoutProps) {
       </AppBar>
       <Container
         component="main"
-        maxWidth="sm"
+        maxWidth={maxWidth}
         sx={{ mt: theme.spacing(3), ...sx }}
         {...outletPropsRest}
       >
