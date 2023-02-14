@@ -64,7 +64,7 @@ function AssignmentTable({assignments, value}: AssignmentProps)
                 checkboxSelection
                 disableSelectionOnClick
                 experimentalFeatures={{newEditingApi: true}}
-            />
+             autoHeight/>
         </Box>
         <Button>Neuen Tisch anlegen</Button>
     </TabPanel>)

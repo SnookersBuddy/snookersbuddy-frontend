@@ -72,7 +72,7 @@ function VariantTable({variants, value}: VariantProps)
                     checkboxSelection
                     disableSelectionOnClick
                     experimentalFeatures={{newEditingApi: true}}
-                />
+                 autoHeight/>
                 <Button>Neue Variante anlegen</Button>
             </Box>
         </TabPanel>)

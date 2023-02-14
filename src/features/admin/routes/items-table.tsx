@@ -65,7 +65,7 @@ function ItemsTable({items, value}: ItemProps) {
                     checkboxSelection
                     disableSelectionOnClick
                     experimentalFeatures={{newEditingApi: true}}
-                    autoHeight/>
+                    autoHeight autoPageSize checkboxSelectionVisibleOnly/>
             </Box>
             <Button>Neues Item anlegen</Button>
         </TabPanel>

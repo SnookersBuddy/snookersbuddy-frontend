@@ -5,13 +5,19 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import TabPanel from "./tab-panel";
 import React from "react";
 import {Option} from "../types/table-data";
+import {queryClient} from "../../../lib";
+import {useDeleteOptionMutation} from "../hooks/use-delete-admin-mutation";
 
 type ItemProps = {
     options: Option[];
     value: number;
+    optionId: (optionId: number) => void;
+
 };
 
 function OptionsTable({options, value}: ItemProps) {
+
+    const onTest: (optionId: number) => void;
 
     const columnsOptions: GridColDef[] = [
         {
@@ -49,6 +55,19 @@ function OptionsTable({options, value}: ItemProps) {
         }
     ];
 
+    function deleteOption(e, row) {
+        console.log("delete Option")
+        console.log(row)
+        useDeleteOptionMutation(row.id)
+    }
+
+    const {id: number} = useDeleteOptionMutation({
+        onSuccess: () => {
+            queryClient.invalidateQueries(["key"]);
+        },
+    });
+
+
     return (
         <TabPanel value={value} index={2}>
             <Box sx={{height: 600}}>
@@ -60,7 +79,7 @@ function OptionsTable({options, value}: ItemProps) {
                     checkboxSelection
                     disableSelectionOnClick
                     experimentalFeatures={{newEditingApi: true}}
-                />
+                    autoHeight/>
             </Box>
             <Button>Neue Option anlegen</Button>
         </TabPanel>
@@ -71,10 +90,7 @@ function OptionsTable({options, value}: ItemProps) {
         console.log(row)
     }
 
-    function deleteOption(e, row) {
-        console.log("delete Option")
-        console.log(row)
-    }
+
 }
 
 export default OptionsTable;
