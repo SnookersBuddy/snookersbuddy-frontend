@@ -18,4 +18,8 @@ export interface VariantGroup{
     name: string;
 }
 
+export interface Wrapper{
+    option: Option;
+}
+
 

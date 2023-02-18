@@ -5,6 +5,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 import TabPanel from "./tab-panel";
 import {Assignment} from "../../order/types/assignment";
+import {useDeleteAssignmentMutation, useDeleteItemMutation} from "../hooks/use-delete-admin-mutation";
+import {queryClient} from "../../../lib";
 
 type AssignmentProps = {
     assignments: Assignment[];
@@ -13,6 +15,15 @@ type AssignmentProps = {
 
 function AssignmentTable({assignments, value}: AssignmentProps)
 {
+    const {mutate} = useDeleteAssignmentMutation({
+        onSuccess: () => {
+            queryClient.invalidateQueries(["table-data"]);
+        },
+    });
+
+    function deleteAssignment(e, row) {
+        mutate(row.id)
+    }
     const columnsAssignments: GridColDef[] = [
         {
             field: 'id',
@@ -72,11 +83,6 @@ function AssignmentTable({assignments, value}: AssignmentProps)
 
 function editAssignment(e, row) {
     console.log("edit assignment")
-    console.log(row)
-}
-
-function deleteAssignment(e, row) {
-    console.log("delete assignment")
     console.log(row)
 }
 

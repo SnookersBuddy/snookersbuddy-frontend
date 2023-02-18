@@ -32,7 +32,7 @@ function Items() {
           </Button>
         </Box>
       }
-    ></FixedContentLayout>
+    />
   );
 }
 

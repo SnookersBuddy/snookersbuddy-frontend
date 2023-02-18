@@ -5,15 +5,25 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 import TabPanel from "./tab-panel";
 import {Variant} from "../../order/types/configuration";
+import {useDeleteVariantMutation} from "../hooks/use-delete-admin-mutation";
+import {queryClient} from "../../../lib";
 
 type VariantProps = {
     variants: Variant[];
     value: number;
 };
 
-function VariantTable({variants, value}: VariantProps)
-{
+function VariantTable({variants, value}: VariantProps) {
 
+    const {mutate} = useDeleteVariantMutation({
+        onSuccess: () => {
+            queryClient.invalidateQueries(["table-data"]);
+        },
+    });
+
+    function deleteVariant(e, row) {
+        mutate(row.id)
+    }
 
     const columnsVariants: GridColDef[] = [
         {
@@ -56,11 +66,6 @@ function VariantTable({variants, value}: VariantProps)
         console.log(row)
     }
 
-    function deleteVariant(e, row) {
-        console.log("delete variant")
-        console.log(row)
-    }
-
     return (
         <TabPanel value={value} index={1}>
             <Box sx={{height: 600}}>
@@ -72,7 +77,7 @@ function VariantTable({variants, value}: VariantProps)
                     checkboxSelection
                     disableSelectionOnClick
                     experimentalFeatures={{newEditingApi: true}}
-                 autoHeight/>
+                    autoHeight/>
                 <Button>Neue Variante anlegen</Button>
             </Box>
         </TabPanel>)

@@ -4,6 +4,8 @@ import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TabPanel from "./tab-panel";
+import {useDeleteItemMutation} from "../hooks/use-delete-admin-mutation";
+import {queryClient} from "../../../lib";
 
 type ItemProps = {
     items;
@@ -11,6 +13,16 @@ type ItemProps = {
 };
 
 function ItemsTable({items, value}: ItemProps) {
+
+    const {mutate} = useDeleteItemMutation({
+        onSuccess: () => {
+            queryClient.invalidateQueries(["table-data"]);
+        },
+    });
+
+    function deleteItem(e, row) {
+        mutate(row.id)
+    }
 
     const columnsItems: GridColDef[] = [
         {
@@ -73,12 +85,6 @@ function ItemsTable({items, value}: ItemProps) {
 
     function editItem(e, row) {
         console.log("edit Item")
-        console.log(row)
-    }
-
-    function deleteItem(e, row) {
-        console.log("delete Item");
-        console.log(deleteOption())
         console.log(row)
     }
 }
