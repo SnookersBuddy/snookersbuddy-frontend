@@ -35,7 +35,7 @@ function OptionForm({option}: OptionProps) {
                     </FormControl>
                     <Typography textTransform="uppercase">ID:</Typography>
                     <FormControl key={option.id}>
-                        <TextField {...optionValues.register("id")} defaultValue={optionValues.name}>
+                        <TextField {...optionValues.register("id")} defaultValue={optionValues.id}>
                         </TextField>
                     </FormControl>
                 </Stack>

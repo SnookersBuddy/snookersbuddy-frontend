@@ -5,7 +5,6 @@ import {Variant} from "../../order/types/configuration";
 import {Assignment} from "../../order/types/assignment";
 
 function createOption(option: Option){
-    const optionId = option.id;
     return fetch(`/api/option`, {
         method: "post",
         body: JSON.stringify(option),
@@ -24,8 +23,7 @@ export function useCreateOptionMutation(
 }
 
 function createItem(item: Item){
-    const itemId = item.id;
-    return fetch(`/api/item/${itemId}`, {
+    return fetch(`/api/item/}`, {
         method: "post",
         body: JSON.stringify(item),
         headers: {
@@ -43,8 +41,7 @@ export function useCreateItemMutation(
 }
 
 function createVariant(variant: Variant){
-    const variantId = variant.id;
-    return fetch(`/api/variant/${variantId}`, {
+    return fetch(`/api/variant`, {
         method: "post",
         body: JSON.stringify(variant),
         headers: {
@@ -62,8 +59,7 @@ export function useCreateVariantMutation(
 }
 
 function createAssignment(assignment: Assignment){
-    const assignmentId = assignment.id;
-    return fetch(`/api/assignment/${assignmentId}`, {
+    return fetch(`/api/assignment`, {
         method: "post",
         body: JSON.stringify(assignment),
         headers: {

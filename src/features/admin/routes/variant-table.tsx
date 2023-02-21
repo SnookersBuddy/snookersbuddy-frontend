@@ -7,6 +7,8 @@ import TabPanel from "./tab-panel";
 import {Variant} from "../../order/types/configuration";
 import {useDeleteVariantMutation} from "../hooks/use-delete-admin-mutation";
 import {queryClient} from "../../../lib";
+import {Link as RouterLink} from "react-router-dom";
+
 
 type VariantProps = {
     variants: Variant[];
@@ -40,9 +42,13 @@ function VariantTable({variants, value}: VariantProps) {
         {
             field: 'edit', headerName: 'Bearbeiten', width: 100, renderCell: (params) => {
                 return (
-                    <IconButton onClick={(e) => editVariant(e, params.row)}
-                                variant="contained"
-                                aria-label="delete" color="primary">
+                    <IconButton
+                        variant="contained"
+                        aria-label="delete"
+                        color="primary"
+                        key={params.row.id}
+                        component={RouterLink}
+                        to={`variant/${params.row.id}`}>
                         <EditIcon/>
                     </IconButton>
                 );
@@ -61,24 +67,25 @@ function VariantTable({variants, value}: VariantProps) {
         }
     ];
 
-    function editVariant(e, row) {
-        console.log("edit variant")
-        console.log(row)
-    }
-
     return (
         <TabPanel value={value} index={1}>
             <Box sx={{height: 600}}>
                 <DataGrid
                     rows={variants}
                     columns={columnsVariants}
-                    pageSize={20}
+                    pageSize={15}
                     rowsPerPageOptions={[20]}
                     checkboxSelection
                     disableSelectionOnClick
                     experimentalFeatures={{newEditingApi: true}}
                     autoHeight/>
-                <Button>Neue Variante anlegen</Button>
+                <Box sx={{display: "flex", justifyContent: "center", mt:2}}>
+                    <Button
+                        variant="outlined"
+                        component={RouterLink}
+                        to={`variant/new`}>
+                        Neue Variante anlegen</Button>
+                </Box>
             </Box>
         </TabPanel>)
 }

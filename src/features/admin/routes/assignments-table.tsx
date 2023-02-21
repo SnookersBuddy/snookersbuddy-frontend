@@ -5,16 +5,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 import TabPanel from "./tab-panel";
 import {Assignment} from "../../order/types/assignment";
-import {useDeleteAssignmentMutation, useDeleteItemMutation} from "../hooks/use-delete-admin-mutation";
+import {useDeleteAssignmentMutation} from "../hooks/use-delete-admin-mutation";
 import {queryClient} from "../../../lib";
+import {Link as RouterLink} from "react-router-dom";
+
 
 type AssignmentProps = {
     assignments: Assignment[];
     value: number;
 };
 
-function AssignmentTable({assignments, value}: AssignmentProps)
-{
+function AssignmentTable({assignments, value}: AssignmentProps) {
     const {mutate} = useDeleteAssignmentMutation({
         onSuccess: () => {
             queryClient.invalidateQueries(["table-data"]);
@@ -24,6 +25,7 @@ function AssignmentTable({assignments, value}: AssignmentProps)
     function deleteAssignment(e, row) {
         mutate(row.id)
     }
+
     const columnsAssignments: GridColDef[] = [
         {
             field: 'id',
@@ -45,9 +47,13 @@ function AssignmentTable({assignments, value}: AssignmentProps)
         {
             field: 'edit', headerName: 'Bearbeiten', width: 100, renderCell: (params) => {
                 return (
-                    <IconButton onClick={(e) => editAssignment(e, params.row)}
-                                variant="contained"
-                                aria-label="delete" color="primary">
+                    <IconButton
+                        variant="contained"
+                        aria-label="delete"
+                        color="primary"
+                        key={params.row.id}
+                        component={RouterLink}
+                        to={`assignment/${params.row.id}`}>
                         <EditIcon/>
                     </IconButton>
                 );
@@ -58,32 +64,36 @@ function AssignmentTable({assignments, value}: AssignmentProps)
                 return (
                     <IconButton aria-label="delete" color="primary"
                                 onClick={(e) => deleteAssignment(e, params.row)}
-                                variant="contained">
+                                variant="outlined">
                         <DeleteIcon/>
                     </IconButton>
                 );
             }
         }
     ];
-    return (<TabPanel value={value} index={3}>
-        <Box sx={{height: 600}}>
-            <DataGrid
-                rows={assignments}
-                columns={columnsAssignments}
-                pageSize={20}
-                rowsPerPageOptions={[20]}
-                checkboxSelection
-                disableSelectionOnClick
-                experimentalFeatures={{newEditingApi: true}}
-             autoHeight/>
-        </Box>
-        <Button>Neuen Tisch anlegen</Button>
-    </TabPanel>)
-}
+    return (
+        <TabPanel value={value} index={3}>
+            <Box sx={{height: 600}}>
+                <DataGrid
+                    rows={assignments}
+                    columns={columnsAssignments}
+                    pageSize={15}
+                    rowsPerPageOptions={[20]}
+                    checkboxSelection
+                    disableSelectionOnClick
+                    experimentalFeatures={{newEditingApi: true}}
+                    autoHeight/>
+                <Box sx={{display: "flex", justifyContent: "center", mt: 2}}>
+                    <Button
+                        variant="outlined"
+                        component={RouterLink}
+                        to={`assignment/new`}>
+                        Neuen Tisch anlegen
+                    </Button>
+                </Box>
+            </Box>
 
-function editAssignment(e, row) {
-    console.log("edit assignment")
-    console.log(row)
+        </TabPanel>)
 }
 
 export default AssignmentTable;

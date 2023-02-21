@@ -6,6 +6,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import TabPanel from "./tab-panel";
 import {useDeleteItemMutation} from "../hooks/use-delete-admin-mutation";
 import {queryClient} from "../../../lib";
+import {Link as RouterLink} from "react-router-dom";
+
 
 type ItemProps = {
     items;
@@ -45,9 +47,13 @@ function ItemsTable({items, value}: ItemProps) {
         {
             field: 'edit', headerName: 'Bearbeiten', width: 100, renderCell: (params) => {
                 return (
-                    <IconButton onClick={(e) => editItem(e, params.row)}
-                                variant="contained"
-                                aria-label="delete" color="primary">
+                    <IconButton
+                        variant="contained"
+                        aria-label="delete"
+                        color="primary"
+                        key={params.row.id}
+                        component={RouterLink}
+                        to={`item/${params.row.id}`}>
                         <EditIcon/>
                     </IconButton>
                 );
@@ -72,21 +78,23 @@ function ItemsTable({items, value}: ItemProps) {
                 <DataGrid
                     rows={items}
                     columns={columnsItems}
-                    pageSize={20}
+                    pageSize={15}
                     rowsPerPageOptions={[20]}
                     checkboxSelection
                     disableSelectionOnClick
                     experimentalFeatures={{newEditingApi: true}}
                     autoHeight autoPageSize checkboxSelectionVisibleOnly/>
+                <Box sx={{ display: "flex", justifyContent: "center", mt:2}}>
+                <Button
+                    variant="outlined"
+                    component={RouterLink}
+                    to={`item/new`}>
+                    Neues Item anlegen</Button>
+                </Box>
             </Box>
-            <Button>Neues Item anlegen</Button>
+
         </TabPanel>
     )
-
-    function editItem(e, row) {
-        console.log("edit Item")
-        console.log(row)
-    }
 }
 
 export default ItemsTable;

@@ -75,18 +75,21 @@ function OptionsTable({options, value}: ItemProps) {
                 <DataGrid
                     rows={options}
                     columns={columnsOptions}
-                    pageSize={20}
+                    pageSize={15}
                     rowsPerPageOptions={[20]}
                     checkboxSelection
                     disableSelectionOnClick
                     experimentalFeatures={{newEditingApi: true}}
 
                     autoHeight/>
+                <Box sx={{display: "flex", justifyContent: "center", mt:2 }}>
+                    <Button
+                        variant="outlined"
+                        component={RouterLink}
+                        to={`option/new`}
+                    >Neue Option anlegen</Button>
+                </Box>
             </Box>
-            <Button
-                component={RouterLink}
-                to={`option/new`}
-            >Neue Option anlegen</Button>
         </TabPanel>
     )
 }
