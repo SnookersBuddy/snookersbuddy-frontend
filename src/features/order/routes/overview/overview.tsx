@@ -1,6 +1,7 @@
 import { useActiveRoundState } from "../../state/round";
 import { BaseLayout } from "../../../../components";
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import { Button, Paper, Stack, Typography } from "@mui/material";
 import ConfigEntry from "./config-entry";
 import { Configuration } from "../../types/configuration";
 import { ChevronRight } from "@mui/icons-material";
@@ -53,17 +54,24 @@ function Overview() {
           <Typography align="center">Bestellung ist leer</Typography>
         )}
       </Paper>
-      <Box display="flex" justifyContent="center">
+      <Stack mt={2} direction="row" spacing={1}>
         <Button
+          component={RouterLink}
+          to="../items"
+          variant="contained"
+        >
+          Zurück
+        </Button>
+        <Button
+          fullWidth
           disabled={isLoading || !elements.length}
           onClick={submitBasket}
-          sx={{ mt: 2 }}
           variant="contained"
           endIcon={<ChevronRight />}
         >
           Abschicken
         </Button>
-      </Box>
+      </Stack>
     </BaseLayout>
   );
 }

@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { BaseLayout } from "../../../components";
-import  LandingButton  from "./landing-button";
+import LandingButton from "./landing-button";
 
 function Landing() {
   return (
