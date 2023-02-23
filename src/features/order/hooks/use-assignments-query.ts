@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { Assignment } from "../types/assignment";
 
 function getAssignments(): Promise<Assignment[]> {
@@ -14,6 +14,9 @@ export const assignmentsQueryOptions = {
   queryFn: getAssignments,
 };
 
-export function useAssignmentsQuery() {
-  return useQuery(assignmentsQueryOptions);
+export function useAssignmentsQuery(options: UseQueryOptions<Assignment[]> = {}) {
+  return useQuery({
+    ...assignmentsQueryOptions,
+    ...options,
+  });
 }
