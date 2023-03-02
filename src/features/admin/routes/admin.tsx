@@ -10,7 +10,7 @@ import OptionsTable from "./options-table";
 import AssignmentTable from "./assignments-table";
 
 function Admin() {
-    const adminQuery = getTableData();
+    const adminQuery = getTableData(); //TODO -> useTableQuery -> Naming
     const items = adminQuery.data!.items;
     const options = adminQuery.data!.options;
     const variants = adminQuery.data!.variants;
@@ -24,7 +24,7 @@ function Admin() {
     };
 
     return (
-        <BaseLayout title="Items" maxWidth={'lg'}>
+        <BaseLayout title="Items" maxWidth={'lg'}> {/*TODO - property*/}
 
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">

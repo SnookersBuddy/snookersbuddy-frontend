@@ -1,17 +1,20 @@
 import OptionForm from "./option-form";
-import {getOptionData} from "../../hooks/use-option-query";
-import {useStrongParams} from "../../../../hooks/use-strong-params";
 import {BaseLayout} from "../../../../components";
+import {useCreateOptionMutation} from "../../hooks/use-create-admin-mutation";
+import {queryClient} from "../../../../lib";
+import {useUpdateOptionMutation} from "../../hooks/use-update-admin-mutation";
 
 function CreateOption() {
 
-    const optionId = useStrongParams("optionId").optionId;
-    const option = getOptionData(optionId).data.optionDTO;
+    const {mutate} = useCreateOptionMutation({onSuccess: () => queryClient.invalidateQueries(["table-data"])})
 
+    const handleSubmit = option => {
+        mutate(option)
+    };
 
     return (
-        <BaseLayout title='Bearbeite Option'>
-            <OptionForm option={option} isExisting={true}>
+        <BaseLayout title='Neue Option'>
+            <OptionForm onSubmit={handleSubmit}>
                 test
             </OptionForm>
         </BaseLayout>

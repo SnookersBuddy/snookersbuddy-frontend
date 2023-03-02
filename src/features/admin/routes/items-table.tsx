@@ -7,10 +7,11 @@ import TabPanel from "./tab-panel";
 import {useDeleteItemMutation} from "../hooks/use-delete-admin-mutation";
 import {queryClient} from "../../../lib";
 import {Link as RouterLink} from "react-router-dom";
+import {Item} from "../../order/types/item";
 
 
 type ItemProps = {
-    items;
+    items: Item[];
     value: number;
 };
 
@@ -22,7 +23,7 @@ function ItemsTable({items, value}: ItemProps) {
         },
     });
 
-    function deleteItem(e, row) {
+    function deleteItem(e, row) {  {/*TODO - unused event*/}
         mutate(row.id)
     }
 
@@ -84,12 +85,12 @@ function ItemsTable({items, value}: ItemProps) {
                     disableSelectionOnClick
                     experimentalFeatures={{newEditingApi: true}}
                     autoHeight autoPageSize checkboxSelectionVisibleOnly/>
-                <Box sx={{ display: "flex", justifyContent: "center", mt:2}}>
-                <Button
-                    variant="outlined"
-                    component={RouterLink}
-                    to={`item/new`}>
-                    Neues Item anlegen</Button>
+                <Box sx={{display: "flex", justifyContent: "center", mt: 2}}>
+                    <Button
+                        variant="outlined"
+                        component={RouterLink}
+                        to={`item/new`}>
+                        Neues Item anlegen</Button>
                 </Box>
             </Box>
 

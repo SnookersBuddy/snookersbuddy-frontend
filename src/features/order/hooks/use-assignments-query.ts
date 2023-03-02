@@ -15,7 +15,5 @@ export const assignmentsQueryOptions = {
 };
 
 export function useAssignmentsQuery() {
-  console.log("HÄ?")
-
   return useQuery(assignmentsQueryOptions);
 }

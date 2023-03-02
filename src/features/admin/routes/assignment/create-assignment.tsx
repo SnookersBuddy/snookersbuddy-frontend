@@ -1,21 +1,23 @@
 import AssignmentForm from "./assignment-form";
 import {BaseLayout} from "../../../../components";
-import {Assignment} from "../../../order/types/assignment";
+import {useCreateAssignmentMutation} from "../../hooks/use-create-admin-mutation";
+import {queryClient} from "../../../../lib";
 
 function CreateAssignment() {
 
-    const assignment : Assignment = {
-        id : 0,
-        abbreviation: "",
-        custom: false,
-        assignmentName: "",
-    };
+    const {mutate} = useCreateAssignmentMutation({
+        onSuccess: () => {
+            queryClient.invalidateQueries([['table-data']])
+        }
+    })
+
+    const handleSubmit = assignment => {
+        mutate(assignment)
+    }
 
     return (
         <BaseLayout title={"Neuer Tisch"}>
-            <AssignmentForm assignment={assignment}>
-
-            </AssignmentForm>
+            <AssignmentForm onSubmit={handleSubmit}/>
         </BaseLayout>)
 }
 

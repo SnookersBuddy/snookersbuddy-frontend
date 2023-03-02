@@ -1,27 +1,22 @@
 import {FormProvider, useForm} from "react-hook-form";
 import {Button, FormControl, Stack, TextField, Typography} from "@mui/material";
-import {useUpdateOptionMutation} from "../../hooks/use-update-admin-mutation";
 import {ChevronRight} from "@mui/icons-material";
 import {Option} from "../../types/table-data";
-import {useCreateOptionMutation} from "../../hooks/use-create-admin-mutation";
 
 type OptionProps = {
-    option: Option;
+    onSubmit: (option: Option) => void;
+    option?: Option;
 };
 
-function OptionForm({option}: OptionProps) {
-
-    const {mutate} = useCreateOptionMutation(option);
-    const {mutate2} = useUpdateOptionMutation(option);
+function OptionForm({option, onSubmit}: OptionProps) {
 
     const optionValues = useForm({
         defaultValues: option,
+
     });
 
     function updateOption(data) {
-
-        mutate(option)
-        mutate2(option)
+        onSubmit(data);
     }
 
     return (
@@ -29,13 +24,13 @@ function OptionForm({option}: OptionProps) {
             <form onSubmit={optionValues.handleSubmit(updateOption)}>
                 <Stack spacing={2}>
                     <Typography textTransform="uppercase">Name:</Typography>
-                    <FormControl key={option.name}>
-                        <TextField {...optionValues.register("name")} defaultValue={optionValues.name}>
+                    <FormControl>
+                        <TextField {...optionValues.register("name")}>
                         </TextField>
                     </FormControl>
                     <Typography textTransform="uppercase">ID:</Typography>
-                    <FormControl key={option.id}>
-                        <TextField {...optionValues.register("id")} defaultValue={optionValues.id}>
+                    <FormControl>
+                        <TextField {...optionValues.register("id")}>
                         </TextField>
                     </FormControl>
                 </Stack>

@@ -14,8 +14,8 @@ function AdminRoutes() {
     return (
         <Suspense fallback="Laden...">
             <Routes>
-                <Route path="option/:optionId" element={<CreateOption/>}/>
-                <Route path="option/new" element={<EditOption/>}/>
+                <Route path="option/:optionId" element={<EditOption/>}/>
+                <Route path="option/new" element={<CreateOption/>}/>
 
                 <Route path="assignment/:assignmentId" element={<EditAssignment/>}/>
                 <Route path="assignment/new" element={<CreateAssignment/>}/>
