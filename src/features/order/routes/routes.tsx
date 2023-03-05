@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Assignments from "./asignments";
+import Assignments from "./assignments";
 import Items from "./items";
 import Overview from "./overview";
 import Configurator from "./configurator";
