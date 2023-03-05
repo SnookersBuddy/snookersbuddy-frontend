@@ -1,10 +1,10 @@
-import { FixedContentLayout } from "../../../components";
+import { FixedContentLayout } from "../../../../components";
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import ItemsList from "./items-list";
 import { Link } from "react-router-dom";
-import { useItemsQuery } from "../hooks/use-items-query";
-import { useActiveAssignment } from "../hooks/use-active-assignment";
+import { useItemsQuery } from "../../hooks/use-items-query";
+import { useActiveAssignment } from "../../hooks/use-active-assignment";
 
 function Items() {
   const itemsQuery = useItemsQuery();
