@@ -1,14 +1,13 @@
-import {useQuery} from "@tanstack/react-query";
-import {Assignment} from "../../order/types/assignment";
+import { useQuery } from "@tanstack/react-query";
+import { Assignment } from "../../order/types/assignment";
 
-function getAssignment(assignmentId: number): Promise<Assignment>{
-    return fetch(`/api/assignment/${assignmentId}`)
-        .then((res) => res.json())
+function getAssignment(assignmentId: number): Promise<Assignment> {
+  return fetch(`/api/assignment/${assignmentId}`).then((res) => res.json());
 }
 
-export function getAssignmentData(assignmentId) {
-    return useQuery({
-        queryKey: ["assignment", assignmentId],
-        queryFn: () => getAssignment(assignmentId),
-    });
+export function useAssignmentQuery(assignmentId) {
+  return useQuery({
+    queryKey: ["assignment", assignmentId],
+    queryFn: () => getAssignment(assignmentId),
+  });
 }

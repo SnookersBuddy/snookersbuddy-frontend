@@ -1,60 +1,66 @@
-import {Assignment} from "../../../order/types/assignment";
-import {FormProvider, useForm} from "react-hook-form";
-import {Button, Checkbox, FormControl, Stack, TextField, Typography} from "@mui/material";
+import { Assignment } from "../../../order/types/assignment";
+import { Controller, useForm } from "react-hook-form";
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  Stack,
+  TextField,
+} from "@mui/material";
 
-import {ChevronRight} from "@mui/icons-material";
-
+import { ChevronRight } from "@mui/icons-material";
 
 type AssignmentProps = {
-    onSubmit: (assignment: Assignment) => void;
-    assignment?: Assignment;
+  onSubmit: (assignment: Assignment) => void;
+  assignment?: Assignment;
 };
 
-function AssignmentForm({assignment, onSubmit}: AssignmentProps) {
+function AssignmentForm({ assignment, onSubmit }: AssignmentProps) {
+  const { handleSubmit, register, control } = useForm({
+    defaultValues: assignment,
+  });
 
-    const assignmentValues = useForm({
-        defaultValues: assignment,
-    });
+  const updateAssignment = (data: Assignment) => {
+    onSubmit(data);
+  };
 
-    function updateAssignment(data){
-        onSubmit(data)
-    }
-
-    return (
-        <FormProvider>
-            <form onSubmit={assignmentValues.handleSubmit(updateAssignment)}>
-                <Stack spacing={2}>
-                    <Typography textTransform="uppercase">Name:</Typography>
-                    <FormControl>
-                        <TextField {...assignmentValues.register("assignmentName")}>
-                        </TextField>
-                    </FormControl>
-                    <Typography textTransform="uppercase">Abkürzung:</Typography>
-                    <FormControl>
-                        <TextField {...assignmentValues.register("abbreviation")}>
-                        </TextField>
-                    </FormControl>
-                    <Typography textTransform="uppercase">ID:</Typography>
-                    <FormControl>
-                        <TextField {...assignmentValues.register("id")}>
-                        </TextField>
-                    </FormControl>
-                    <Typography textTransform="uppercase">Stammkunde:</Typography>
-                    <FormControl>
-                        <Checkbox {...assignmentValues.register("custom")} checked={assignmentValues.custom}/>
-                    </FormControl>
-                </Stack>
-                <Button
-                    sx={{mt: 5}}
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                    endIcon={<ChevronRight/>}
-                >
-                    Abschicken
-                </Button>
-            </form>
-        </FormProvider>)
+  return (
+    <form onSubmit={handleSubmit(updateAssignment)}>
+      <Stack spacing={2}>
+        <FormControl>
+          <TextField label="Name" {...register("displayName")}></TextField>
+        </FormControl>
+        <FormControl>
+          <TextField
+            label="Abkürzung"
+            {...register("abbreviation")}
+          ></TextField>
+        </FormControl>
+        <FormControlLabel
+          label="Stammkunde"
+          control={
+            <Controller
+              control={control}
+              name="custom"
+              render={({ field }) => (
+                <Checkbox checked={field.value} {...field} />
+              )}
+            />
+          }
+        />
+      </Stack>
+      <Button
+        sx={{ mt: 5 }}
+        size="large"
+        type="submit"
+        variant="contained"
+        endIcon={<ChevronRight />}
+      >
+        Abschicken
+      </Button>
+    </form>
+  );
 }
 
 export default AssignmentForm;

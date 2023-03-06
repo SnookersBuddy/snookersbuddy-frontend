@@ -1,54 +1,57 @@
-import {Box} from "@mui/material";
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import {getTableData} from "../hooks/use-table-query";
-import {BaseLayout} from "../../../components";
-import React from "react";
+import { Box } from "@mui/material";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { useTableQuery } from "../hooks/use-table-query";
+import { BaseLayout } from "../../../components";
+import { SyntheticEvent } from "react";
 import ItemsTable from "./items-table";
 import VariantTable from "./variant-table";
 import OptionsTable from "./options-table";
 import AssignmentTable from "./assignments-table";
+import { useSearchParams } from "react-router-dom";
+
+const OUTLET_PROPS = { maxWidth: "lg" } as const;
 
 function Admin() {
-    const adminQuery = getTableData(); //TODO -> useTableQuery -> Naming
-    const items = adminQuery.data!.items;
-    const options = adminQuery.data!.options;
-    const variants = adminQuery.data!.variants;
-    const assignments = adminQuery.data!.assignments;
+  const { data } = useTableQuery();
+  const { items, options, variants, assignments } = data!;
 
-    const [value, setValue] = React.useState(0);
+  const [search, setSearch] = useSearchParams();
 
+  const handleChange = (event: SyntheticEvent, newValue: number) => {
+    setSearch({ view: newValue.toString() });
+  };
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
-    };
+  const tabQuery = search.get("view");
+  const activeTabIdx = !!tabQuery ? +tabQuery : 0;
 
-    return (
-        <BaseLayout title="Items" maxWidth={'lg'}> {/*TODO - property*/}
-
-            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Items" {...a11yProps(0)}/>
-                    <Tab label="Varianten" {...a11yProps(1)}/>
-                    <Tab label="Optionen" {...a11yProps(2)}/>
-                    <Tab label="Assignments" {...a11yProps(3)}/>
-                </Tabs>
-            </Box>
-            <ItemsTable items={items} value={value}/>
-            <VariantTable variants={variants} value={value}/>
-            <OptionsTable options={options} value={value}/>
-            <AssignmentTable assignments={assignments} value={value}/>
-
-        </BaseLayout>
-    );
+  return (
+    <BaseLayout title="Items" outletProps={OUTLET_PROPS}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={activeTabIdx}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          <Tab label="Items" {...a11yProps(0)} />
+          <Tab label="Varianten" {...a11yProps(1)} />
+          <Tab label="Optionen" {...a11yProps(2)} />
+          <Tab label="Assignments" {...a11yProps(3)} />
+        </Tabs>
+      </Box>
+      <ItemsTable items={items} value={activeTabIdx} />
+      <VariantTable variants={variants} value={activeTabIdx} />
+      <OptionsTable options={options} value={activeTabIdx} />
+      <AssignmentTable assignments={assignments} value={activeTabIdx} />
+    </BaseLayout>
+  );
 }
 
-
 function a11yProps(index: number) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
 }
 
 export default Admin;

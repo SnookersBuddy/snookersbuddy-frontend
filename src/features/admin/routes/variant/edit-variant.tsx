@@ -1,30 +1,33 @@
 import VariantForm from "./variant-form";
-import {useStrongParams} from "../../../../hooks/use-strong-params";
-import {getVariantData} from "../../hooks/use-variant-query";
-import {useUpdateVariantMutation} from "../../hooks/use-update-admin-mutation";
-import {queryClient} from "../../../../lib";
-import {BaseLayout} from "../../../../components";
+import { useStrongParams } from "../../../../hooks/use-strong-params";
+import { useVariantQuery } from "../../hooks/use-variant-query";
+import { useUpdateVariantMutation } from "../../hooks/use-update-admin-mutation";
+import { queryClient } from "../../../../lib";
+import { BaseLayout } from "../../../../components";
+import { Variant } from "../../types/table-data";
+import { useNavigate } from "react-router-dom";
 
 function EditVariant() {
+  const variantId = useStrongParams("variantId").variantId;
+  const { data: variant } = useVariantQuery(+variantId);
 
-    const variantId = useStrongParams("variantId").variantId;
-    const variant = getVariantData(variantId).data.variantDTO;
-    console.log(variant)
+  const navigate = useNavigate();
+  const { mutate } = useUpdateVariantMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries(["table-data"]);
+      navigate(-1);
+    },
+  });
 
-    const {mutate} = useUpdateVariantMutation({
-        onSuccess: () => queryClient.invalidateQueries(["table-data"])
-    })
+  const handleSubmit = (variant: Variant) => {
+    mutate(variant);
+  };
 
-    const handleSubmit = variant => {
-        mutate(variant)
-    };
-
-    return (
-        <BaseLayout title='Bearbeite Variante'>
-            <VariantForm variant={variant} onSubmit={handleSubmit}>
-            </VariantForm>
-        </BaseLayout>)
-
+  return (
+    <BaseLayout title="Bearbeite Variante">
+      <VariantForm variant={variant} onSubmit={handleSubmit} />
+    </BaseLayout>
+  );
 }
 
 export default EditVariant;

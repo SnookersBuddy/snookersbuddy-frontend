@@ -1,17 +1,16 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
-import {Option} from "../types/table-data";
-import {Item} from "../../order/types/item";
-import {Variant} from "../../order/types/configuration";
-import {Assignment} from "../../order/types/assignment";
+import { Option, Variant } from "../types/table-data";
+import { Item } from "../../order/types/item";
+import { Assignment } from "../../order/types/assignment";
 
-function createOption(option: Option){
-    return fetch(`/api/option`, {
-        method: "post",
-        body: JSON.stringify(option),
-        headers: {
-            "content-type": "application/json",
-        },
-    });
+function createOption(option: Option) {
+  return fetch(`/api/option`, {
+    method: "post",
+    body: JSON.stringify(option),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
 }
 
 export function useCreateOptionMutation(

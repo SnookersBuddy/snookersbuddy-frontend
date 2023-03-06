@@ -1,36 +1,44 @@
-import {Item} from "../../order/types/item";
-import {Assignment} from "../../order/types/assignment";
-import {Variant} from "../../order/types/configuration";
+import { Item } from "../../order/types/item";
+import { Assignment } from "../../order/types/assignment";
+import { Variant } from "../../order/types/configuration";
 
-export interface TableData{
-    items: Item[];
-    options: Option[];
-    variants: VariantGroup[];
-    assignments: Assignment[];
+export interface TableData {
+  items: Item[];
+  options: Option[];
+  variants: VariantGroup[];
+  assignments: Assignment[];
 }
 
-export interface Option{
-    id: number;
-    name: string;
+export interface Option {
+  id: number;
+  name: string;
 }
 
-export interface VariantGroup{
-    id: number;
-    name: string;
+export interface VariantGroup {
+  id?: number;
+  name: string;
 }
 
-export interface ItemData{
+export interface SingleVariant {
+  id?: number;
+  name: string;
+}
 
-    itemName: string;
-    abbreviation: string;
-    categoryId: number;
-    selectedOptions: Option[];
-    selectedVariants: Variant[];
+export interface Variant {
+  variantGroup: VariantGroup;
+  singleVariants: SingleVariant[];
+}
 
-    availableOptions: Option[];
-    availableVariants: Variant[];
-    availableCategories: ItemCategory[];
+export interface ItemData {
+  itemName: string;
+  abbreviation: string;
+  categoryId: number;
+  selectedOptions: Option[];
+  selectedVariants: Variant[];
 
+  availableOptions: Option[];
+  availableVariants: Variant[];
+  availableCategories: ItemCategory[];
 }
 
 export interface ItemCategory {
