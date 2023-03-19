@@ -23,12 +23,12 @@ export function useUpdateOptionMutation(
 }
 
 function updateItem(item: ItemData) {
-  const itemId = item.id;
+  const itemId = item.itemId;
   return fetch(`/api/item/${itemId}`, {
     method: "put",
     body: JSON.stringify(item),
     headers: {
-      "content-type": "application/jsn",
+      "content-type": "application/json",
     },
   });
 }

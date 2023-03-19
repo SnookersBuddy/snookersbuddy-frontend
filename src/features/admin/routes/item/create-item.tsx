@@ -6,7 +6,7 @@ import { ItemData } from "../../types/table-data";
 import { BaseLayout } from "../../../../components";
 
 function CreateItem() {
-  const { data: item } = useCreateItemDataQuery();
+  const { data: item } = useCreateItemDataQuery(0);
 
   const { mutate } = useCreateItemMutation({
     onSuccess: () => {

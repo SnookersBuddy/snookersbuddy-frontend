@@ -9,10 +9,12 @@ import { ItemData } from "../../types/table-data";
 function EditItem() {
   // TODO: fetch existing data
   const { itemId } = useStrongParams("itemId");
-  const { data: item } = useCreateItemDataQuery();
+  const { data: item } = useCreateItemDataQuery(parseInt(itemId, 10));
 
   const handleSubmit = (item: ItemData) => {
-    mutate(item);
+    console.log(itemId)
+    console.log(parseInt(itemId, 10))
+    mutate(item, parseInt(itemId, 10));
   };
 
   const { mutate } = useUpdateItemMutation({
