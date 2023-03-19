@@ -49,6 +49,10 @@ function ItemForm({item, onSubmit}: ItemProps) {
                             />}
                         />
 
+                        <Typography textTransform="uppercase">Varianten:</Typography>
+
+                        <Typography textTransform="uppercase">Optionen:</Typography>
+
                         <Button
                             sx={{mt: 5}}
                             size="large"

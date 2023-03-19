@@ -39,7 +39,7 @@ export function useUpdateItemMutation(
 ) {
   return useMutation({
     mutationFn: updateItem,
-    ...option,
+    ...options,
   });
 }
 
@@ -59,7 +59,7 @@ export function useUpdateVariantMutation(
 ) {
   return useMutation({
     mutationFn: updateVariant,
-    ...optios,
+    ...options,
   });
 }
 
@@ -79,6 +79,6 @@ export function useUpdateAssignmentMutation(
 ) {
   return useMutation({
     mutationFn: updateAssignment,
-    ...optios,
+    ...options,
   });
 }

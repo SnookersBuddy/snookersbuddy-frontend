@@ -14,6 +14,6 @@ async function getVariant(variantId: number): Promise<Variant> {
 export function useVariantQuery(variantId: number) {
   return useQuery({
     queryKey: ["variant", variantId],
-    queryFn: () => getVariant(variantd),
+    queryFn: () => getVariant(variantId),
   });
 }
