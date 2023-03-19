@@ -1,6 +1,5 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
-import { Option, Variant } from "../types/table-data";
-import { Item } from "../../order/types/item";
+import { CreateItemInput, Option, Variant } from "../types/table-data";
 import { Assignment } from "../../order/types/assignment";
 
 function createOption(option: Option) {
@@ -21,32 +20,33 @@ export function useCreateOptionMutation(
     });
 }
 
-function createItem(item: Item){
-    return fetch(`/api/item/}`, {
-        method: "post",
-        body: JSON.stringify(item),
-        headers: {
-            "content-type": "application/json",
-        },
-    });
+function createItem(item: CreateItemInput) {
+  return fetch(`/api/item/}`, {
+    method: "post",
+    body: JSON.stringify(item),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
 }
 
 export function useCreateItemMutation(
-    options: UseMutationOptions<unknown, unknown, Item>) {
-    return useMutation({
-        mutationFn: createItem,
-        ...options
-    });
+  options: UseMutationOptions<unknown, unknown, CreateItemInput>
+) {
+  return useMutation({
+    mutationFn: createItem,
+    ...options,
+  });
 }
 
-function createVariant(variant: Variant){
-    return fetch(`/api/variant`, {
-        method: "post",
-        body: JSON.stringify(variant),
-        headers: {
-            "content-type": "application/json",
-        },
-    });
+function createVariant(variant: Variant) {
+  return fetch(`/api/variant`, {
+    method: "post",
+    body: JSON.stringify(variant),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
 }
 
 export function useCreateVariantMutation(

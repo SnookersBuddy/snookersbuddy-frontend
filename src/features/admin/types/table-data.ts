@@ -1,6 +1,5 @@
 import { Item } from "../../order/types/item";
 import { Assignment } from "../../order/types/assignment";
-import { Variant } from "../../order/types/configuration";
 
 export interface TableData {
   items: Item[];
@@ -22,6 +21,7 @@ export interface VariantGroup {
 export interface SingleVariant {
   id?: number;
   name: string;
+  selected?: boolean;
 }
 
 export interface Variant {
@@ -30,20 +30,39 @@ export interface Variant {
 }
 
 export interface ItemData {
+  [x: string]: any;
+
   itemName: string;
   abbreviation: string;
   categoryId: number;
-  selectedOptions: Option[];
-  selectedVariants: Variant[];
 
-  availableOptions: Option[];
-  availableVariants: Variant[];
+  availableOptions: OptionWithDefault[];
+  availableVariants: VariantWithDefault[];
   availableCategories: ItemCategory[];
 }
 
-export interface ItemCategory {
-    id: number;
-    name: string;
+export interface CreateItemInput {
+  itemName: string;
+  abbreviation: string;
+  categoryId: number;
+  selectedOptions: OptionWithDefault[];
+  selectedVariants: VariantWithDefault[];
 }
 
+export interface OptionWithDefault {
+  id: number;
+  name: string;
+  defaultValue: boolean;
+  selected?: boolean;
+}
 
+export interface VariantWithDefault {
+  name: string;
+  defaultVariantId: number;
+  variants: SingleVariant[];
+}
+
+export interface ItemCategory {
+  id: number;
+  name: string;
+}

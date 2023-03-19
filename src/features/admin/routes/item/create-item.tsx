@@ -1,23 +1,38 @@
 import ItemForm from "./item-form";
-import {useCreateItemMutation} from "../../hooks/use-create-admin-mutation";
-import {queryClient} from "../../../../lib";
+import { useCreateItemMutation } from "../../hooks/use-create-admin-mutation";
+import { queryClient } from "../../../../lib";
+import { useCreateItemDataQuery } from "../../hooks/use-create-item-data-query";
+import { ItemData } from "../../types/table-data";
+import { BaseLayout } from "../../../../components";
 
 function CreateItem() {
+  const { data: item } = useCreateItemDataQuery();
 
-    const {mutate} = useCreateItemMutation({
-        onSuccess: () => {
-            queryClient.invalidateQueries(["table-data"]);
-        }
-    })
+  const { mutate } = useCreateItemMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries(["table-data"]);
+    },
+  });
 
-    const handleSubmit = item => {
-        mutate(item)
-    }
+  const handleSubmit = (item: ItemData) => {
+    const input = {
+      itemName: item.itemName,
+      abbreviation: item.abbreviation,
+      categoryId: item.categoryId,
+      selectedOptions: item.availableOptions.filter(({ selected }) => selected),
+      selectedVariants: item.availableVariants.filter((variant) =>
+        variant.variants.some(({ selected }) => selected)
+      ),
+    };
+    console.log(input);
+    mutate(input);
+  };
 
-    return (
-        <ItemForm onSubmit={handleSubmit}>
-
-        </ItemForm>)
+  return (
+    <BaseLayout title="Item anlegen">
+      <ItemForm item={item!} onSubmit={handleSubmit} />
+    </BaseLayout>
+  );
 }
 
-export default ItemForm;
+export default CreateItem;

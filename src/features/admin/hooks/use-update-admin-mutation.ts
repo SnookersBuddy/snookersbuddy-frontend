@@ -1,6 +1,5 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
-import { Option, Variant } from "../types/table-data";
-import { Item } from "../../order/types/item";
+import { ItemData, Option, Variant } from "../types/table-data";
 import { Assignment } from "../../order/types/assignment";
 
 function updateOption(option: Option) {
@@ -23,7 +22,7 @@ export function useUpdateOptionMutation(
   });
 }
 
-function updateItem(item: Item) {
+function updateItem(item: ItemData) {
   const itemId = item.id;
   return fetch(`/api/item/${itemId}`, {
     method: "put",
@@ -35,7 +34,7 @@ function updateItem(item: Item) {
 }
 
 export function useUpdateItemMutation(
-  options: UseMutationOptions<unknown, unknown, Item>
+  options: UseMutationOptions<unknown, unknown, ItemData>
 ) {
   return useMutation({
     mutationFn: updateItem,

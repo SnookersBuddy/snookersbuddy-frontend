@@ -39,8 +39,6 @@ function VariantForm({ variant, onSubmit }: VariantFormProps) {
     keyName: "inputId",
   });
 
-  console.log(fields);
-
   const variants = fields?.map(
     ({ name, id, inputId }, index) => [index, inputId] as const
   );
