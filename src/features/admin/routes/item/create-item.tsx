@@ -4,27 +4,32 @@ import { queryClient } from "../../../../lib";
 import { useCreateItemDataQuery } from "../../hooks/use-create-item-data-query";
 import { ItemData } from "../../types/table-data";
 import { BaseLayout } from "../../../../components";
+import { useNavigate } from "react-router-dom";
+
 
 function CreateItem() {
+
+  const navigate = useNavigate();
   const { data: item } = useCreateItemDataQuery(0);
 
   const { mutate } = useCreateItemMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(["table-data"]);
+      navigate(-1);
     },
   });
 
   const handleSubmit = (item: ItemData) => {
+    item.availableVariants.forEach(variantGroup => variantGroup.variants = variantGroup.variants.filter(singleVariant => singleVariant.selected))
     const input = {
       itemName: item.itemName,
       abbreviation: item.abbreviation,
       categoryId: item.categoryId,
-      selectedOptions: item.availableOptions.filter(({ selected }) => selected),
-      selectedVariants: item.availableVariants.filter((variant) =>
+      availableOptions: item.availableOptions.filter(({ selected }) => selected),
+      availableVariants: item.availableVariants.filter((variant) =>
         variant.variants.some(({ selected }) => selected)
       ),
     };
-    console.log(input);
     mutate(input);
   };
 

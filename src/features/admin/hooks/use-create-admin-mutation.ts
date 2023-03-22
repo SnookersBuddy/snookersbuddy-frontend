@@ -21,7 +21,7 @@ export function useCreateOptionMutation(
 }
 
 function createItem(item: CreateItemInput) {
-  return fetch(`/api/item/}`, {
+  return fetch(`/api/item`, {
     method: "post",
     body: JSON.stringify(item),
     headers: {
