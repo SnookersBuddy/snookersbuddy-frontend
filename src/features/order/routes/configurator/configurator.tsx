@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -10,12 +10,12 @@ import {
 import { Configuration } from "../../types/configuration";
 import { BaseLayout } from "../../../../components";
 import { FormProvider, useForm } from "react-hook-form";
-import { ChevronRight } from "@mui/icons-material";
+import { Cancel, ChevronRight } from "@mui/icons-material";
 import Variants from "./variants";
 import Options from "./options";
 import {
   positiveNumberTransformer,
-  TransformController
+  TransformController,
 } from "../../../../components/transform-controller";
 import { useRoundState } from "../../state/round";
 import useConfigurationQuery from "../../hooks/use-configuration-query";
@@ -101,14 +101,26 @@ function Configurator() {
                 </Button>
               </Stack>
             </Stack>
-            <Button
-              size="large"
-              type="submit"
-              variant="contained"
-              endIcon={<ChevronRight />}
-            >
-              Abschicken
-            </Button>
+            <Stack direction="row" spacing={1}>
+              <Button
+                component={RouterLink}
+                to=".."
+                size="large"
+                variant="contained"
+                endIcon={<Cancel />}
+              >
+                Zurück
+              </Button>
+              <Button
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                endIcon={<ChevronRight />}
+              >
+                Abschicken
+              </Button>
+            </Stack>
           </Stack>
         </form>
       </FormProvider>

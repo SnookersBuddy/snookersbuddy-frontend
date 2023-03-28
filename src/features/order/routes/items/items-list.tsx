@@ -1,5 +1,5 @@
 import { Button, Stack, Typography } from "@mui/material";
-import { Item } from "../types/item";
+import { Item } from "../../types/item";
 import { Link as RouterLink } from "react-router-dom";
 import Fuse from "fuse.js";
 import { useMemo } from "react";
