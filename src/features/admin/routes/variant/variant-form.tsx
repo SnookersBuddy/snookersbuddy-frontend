@@ -29,9 +29,9 @@ function VariantForm({ variant, onSubmit }: VariantFormProps) {
     },
   });
 
-  function updateVariant(data: Variant) {
+  const updateVariant = (data: Variant) => () => {
     onSubmit(data);
-  }
+  };
 
   const { fields, append, remove } = useFieldArray({
     control,

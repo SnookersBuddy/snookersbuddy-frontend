@@ -7,6 +7,8 @@ import { useUpdateOptionMutation } from "../../hooks/use-update-admin-mutation";
 import { Option } from "../../types/table-data";
 import { useNavigate } from "react-router-dom";
 
+const OUTLET_PROPS = { maxWidth: "lg" } as const;
+
 function EditOption() {
   const { optionId } = useStrongParams("optionId");
   const { data: option } = useOptionQuery(parseInt(optionId, 10));
@@ -24,7 +26,7 @@ function EditOption() {
   };
 
   return (
-    <BaseLayout title={"Bearbeite Option"}>
+    <BaseLayout title={"Bearbeite Option"} outletProps={OUTLET_PROPS}>
       <OptionForm option={option} onSubmit={handleSubmit} />
     </BaseLayout>
   );

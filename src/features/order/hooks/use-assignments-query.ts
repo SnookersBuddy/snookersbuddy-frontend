@@ -14,7 +14,9 @@ export const assignmentsQueryOptions = {
   queryFn: getAssignments,
 };
 
-export function useAssignmentsQuery(options: UseQueryOptions<Assignment[]> = {}) {
+export function useAssignmentsQuery(
+  options: UseQueryOptions<Assignment[]> = {}
+) {
   return useQuery({
     ...assignmentsQueryOptions,
     ...options,

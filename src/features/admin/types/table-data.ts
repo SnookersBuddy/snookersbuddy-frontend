@@ -35,7 +35,7 @@ export interface ItemData {
   itemName: string;
   abbreviation: string;
   categoryId: number;
-  itemId: number
+  itemId: number;
 
   availableOptions: OptionWithDefault[];
   availableVariants: VariantWithDefault[];

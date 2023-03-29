@@ -10,10 +10,10 @@ export const theme = createTheme({
     },
     primary: {
       ...deepPurple,
-      main: "#6D5676"
+      main: "#6D5676",
     },
   },
   extraPalette: {
     cardBg: "#543F5D",
-  }
+  },
 });

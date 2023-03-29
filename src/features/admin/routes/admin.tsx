@@ -33,10 +33,10 @@ function Admin() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Items" {...a11yProps(0)} />
+          <Tab label="Posten" {...a11yProps(0)} />
           <Tab label="Varianten" {...a11yProps(1)} />
           <Tab label="Optionen" {...a11yProps(2)} />
-          <Tab label="Assignments" {...a11yProps(3)} />
+          <Tab label="Tische" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <ItemsTable items={items} value={activeTabIdx} />

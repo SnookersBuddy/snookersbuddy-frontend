@@ -7,8 +7,9 @@ import { BaseLayout } from "../../../../components";
 import { Variant } from "../../types/table-data";
 import { useNavigate } from "react-router-dom";
 
+const OUTLET_PROPS = { maxWidth: "lg" } as const;
 function EditVariant() {
-  const variantId = useStrongParams("variantId").variantId;
+  const { variantId } = useStrongParams("variantId");
   const { data: variant } = useVariantQuery(+variantId);
 
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function EditVariant() {
   };
 
   return (
-    <BaseLayout title="Bearbeite Variante">
+    <BaseLayout title="Bearbeite Variante" outletProps={OUTLET_PROPS}>
       <VariantForm variant={variant} onSubmit={handleSubmit} />
     </BaseLayout>
   );

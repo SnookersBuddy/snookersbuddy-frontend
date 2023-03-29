@@ -61,6 +61,7 @@ function ItemVariantForm({ variant, index }: ItemVariantFormProps) {
           <InputLabel id={`variant-${variant.variantControlId}-default-label`}>
             Standard auswählen
           </InputLabel>
+          {/*TODO extract this transform object to a constant*/}
           <TransformController
             name={`${variantName}.defaultVariantId`}
             control={control}

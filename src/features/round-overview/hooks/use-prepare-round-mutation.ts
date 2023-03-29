@@ -15,6 +15,6 @@ export function usePrepareRoundMutation(
 ) {
   return useMutation({
     mutationFn: updateMarkRoundAsPrepared,
-    ...options
+    ...options,
   });
 }

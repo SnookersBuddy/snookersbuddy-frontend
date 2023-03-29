@@ -5,6 +5,8 @@ import { queryClient } from "../../../../lib";
 import { Assignment } from "../../../order/types/assignment";
 import { useNavigate } from "react-router-dom";
 
+const OUTLET_PROPS = { maxWidth: "lg" } as const;
+
 function CreateAssignment() {
   const navigate = useNavigate();
   const { mutate } = useCreateAssignmentMutation({
@@ -19,7 +21,7 @@ function CreateAssignment() {
   };
 
   return (
-    <BaseLayout title={"Neuer Tisch"}>
+    <BaseLayout title={"Neuer Tisch"} outletProps={OUTLET_PROPS}>
       <AssignmentForm onSubmit={handleSubmit} />
     </BaseLayout>
   );

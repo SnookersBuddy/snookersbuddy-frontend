@@ -20,11 +20,7 @@ function Options() {
     />
   ));
 
-  return (
-    <FormGroup>
-     {optionElements}
-    </FormGroup>
-  );
+  return <FormGroup>{optionElements}</FormGroup>;
 }
 
 export default Options;

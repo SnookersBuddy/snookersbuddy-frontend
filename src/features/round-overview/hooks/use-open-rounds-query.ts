@@ -40,5 +40,5 @@ export function useOpenRoundsQuery(options: UseQueryOptions<SortedRound[]>) {
     queryKey: ["round-overview"],
     queryFn: fetchOpenRounds,
     ...options,
-  })
+  });
 }

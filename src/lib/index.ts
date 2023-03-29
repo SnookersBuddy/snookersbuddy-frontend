@@ -1,2 +1,2 @@
-export { theme } from './theme';
-export { queryClient } from './query-client';
+export { theme } from "./theme";
+export { queryClient } from "./query-client";

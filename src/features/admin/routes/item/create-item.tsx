@@ -6,9 +6,9 @@ import { ItemData } from "../../types/table-data";
 import { BaseLayout } from "../../../../components";
 import { useNavigate } from "react-router-dom";
 
+const OUTLET_PROPS = { maxWidth: "lg" } as const;
 
 function CreateItem() {
-
   const navigate = useNavigate();
   const { data: item } = useCreateItemDataQuery(0);
 
@@ -20,12 +20,19 @@ function CreateItem() {
   });
 
   const handleSubmit = (item: ItemData) => {
-    item.availableVariants.forEach(variantGroup => variantGroup.variants = variantGroup.variants.filter(singleVariant => singleVariant.selected))
+    item.availableVariants.forEach(
+      (variantGroup) =>
+        (variantGroup.variants = variantGroup.variants.filter(
+          (singleVariant) => singleVariant.selected
+        ))
+    );
     const input = {
       itemName: item.itemName,
       abbreviation: item.abbreviation,
       categoryId: item.categoryId,
-      availableOptions: item.availableOptions.filter(({ selected }) => selected),
+      availableOptions: item.availableOptions.filter(
+        ({ selected }) => selected
+      ),
       availableVariants: item.availableVariants.filter((variant) =>
         variant.variants.some(({ selected }) => selected)
       ),
@@ -34,7 +41,7 @@ function CreateItem() {
   };
 
   return (
-    <BaseLayout title="Item anlegen">
+    <BaseLayout title="Item anlegen" outletProps={OUTLET_PROPS}>
       <ItemForm item={item!} onSubmit={handleSubmit} />
     </BaseLayout>
   );

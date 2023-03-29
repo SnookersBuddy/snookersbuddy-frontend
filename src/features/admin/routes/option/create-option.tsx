@@ -5,6 +5,8 @@ import { queryClient } from "../../../../lib";
 import { Option } from "../../types/table-data";
 import { useNavigate } from "react-router-dom";
 
+const OUTLET_PROPS = { maxWidth: "lg" } as const;
+
 function CreateOption() {
   const navigate = useNavigate();
   const { mutate } = useCreateOptionMutation({
@@ -19,7 +21,7 @@ function CreateOption() {
   };
 
   return (
-    <BaseLayout title="Neue Option">
+    <BaseLayout title="Neue Option" outletProps={OUTLET_PROPS}>
       <OptionForm onSubmit={handleSubmit} />
     </BaseLayout>
   );

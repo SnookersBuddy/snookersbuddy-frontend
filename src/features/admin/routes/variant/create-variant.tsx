@@ -5,6 +5,8 @@ import { BaseLayout } from "../../../../components";
 import { useNavigate } from "react-router-dom";
 import { Variant } from "../../types/table-data";
 
+const OUTLET_PROPS = { maxWidth: "lg" } as const;
+
 function CreateVariant() {
   const navigate = useNavigate();
   const { mutate } = useCreateVariantMutation({
@@ -19,7 +21,7 @@ function CreateVariant() {
   };
 
   return (
-    <BaseLayout title="Neue Variante">
+    <BaseLayout title="Neue Variante" outletProps={OUTLET_PROPS}>
       <VariantForm onSubmit={handleSubmit}></VariantForm>
     </BaseLayout>
   );

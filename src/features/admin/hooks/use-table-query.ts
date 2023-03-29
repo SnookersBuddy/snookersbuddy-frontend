@@ -6,8 +6,8 @@ function getTables(): Promise<TableData> {
 }
 
 export const tableDataQueryOptions = {
-    queryKey: ["table-data"],
-    queryFn: getTables,
+  queryKey: ["table-data"],
+  queryFn: getTables,
 };
 
 export function useTableQuery() {

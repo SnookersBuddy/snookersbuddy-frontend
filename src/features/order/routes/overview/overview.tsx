@@ -55,11 +55,7 @@ function Overview() {
         )}
       </Paper>
       <Stack mt={2} direction="row" spacing={1}>
-        <Button
-          component={RouterLink}
-          to="../items"
-          variant="contained"
-        >
+        <Button component={RouterLink} to="../items" variant="contained">
           Zurück
         </Button>
         <Button

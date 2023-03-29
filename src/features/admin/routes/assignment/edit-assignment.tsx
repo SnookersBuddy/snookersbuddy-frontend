@@ -7,6 +7,8 @@ import { queryClient } from "../../../../lib";
 import { Assignment } from "../../../order/types/assignment";
 import { useNavigate } from "react-router-dom";
 
+const OUTLET_PROPS = { maxWidth: "lg" } as const;
+
 function EditAssignment() {
   const { assignmentId } = useStrongParams("assignmentId");
   const { data: assignment } = useAssignmentQuery(assignmentId);
@@ -24,7 +26,7 @@ function EditAssignment() {
   };
 
   return (
-    <BaseLayout title={"Bearbeite Tisch"}>
+    <BaseLayout title={"Bearbeite Tisch"} outletProps={OUTLET_PROPS}>
       <AssignmentForm
         assignment={assignment}
         onSubmit={handleSubmit}

@@ -34,7 +34,7 @@ function ItemForm({ item, onSubmit }: ItemProps) {
   const formValues = useForm({
     defaultValues: item,
   });
-  const { handleSubmit, register, control,  } = formValues;
+  const { handleSubmit, register, control } = formValues;
 
   const updateItem = (data: ItemData) => {
     onSubmit(data);
@@ -57,7 +57,7 @@ function ItemForm({ item, onSubmit }: ItemProps) {
       <form onSubmit={handleSubmit(updateItem)}>
         <Stack spacing={2}>
           <FormControl>
-            <TextField label="Name" {...register("itemName", )}></TextField>
+            <TextField label="Name" {...register("itemName")}></TextField>
           </FormControl>
           <FormControl>
             <TextField
@@ -116,6 +116,7 @@ function ItemForm({ item, onSubmit }: ItemProps) {
                     )}
                   />
                   <Typography>{option.name}</Typography>
+                  {/*TODO extract this transform object to a constant*/}
                   <TransformController
                     name={`availableOptions.${index}.defaultValue`}
                     control={control}

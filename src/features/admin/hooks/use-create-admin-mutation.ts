@@ -13,11 +13,12 @@ function createOption(option: Option) {
 }
 
 export function useCreateOptionMutation(
-    options: UseMutationOptions<unknown, unknown, Option>) {
-    return useMutation({
-        mutationFn: createOption,
-        ...options
-    });
+  options: UseMutationOptions<unknown, unknown, Option>
+) {
+  return useMutation({
+    mutationFn: createOption,
+    ...options,
+  });
 }
 
 function createItem(item: CreateItemInput) {
@@ -50,27 +51,29 @@ function createVariant(variant: Variant) {
 }
 
 export function useCreateVariantMutation(
-    options: UseMutationOptions<unknown, unknown, Variant>) {
-    return useMutation({
-        mutationFn: createVariant,
-        ...options
-    });
+  options: UseMutationOptions<unknown, unknown, Variant>
+) {
+  return useMutation({
+    mutationFn: createVariant,
+    ...options,
+  });
 }
 
-function createAssignment(assignment: Assignment){
-    return fetch(`/api/assignment`, {
-        method: "post",
-        body: JSON.stringify(assignment),
-        headers: {
-            "content-type": "application/json",
-        },
-    });
+function createAssignment(assignment: Assignment) {
+  return fetch(`/api/assignment`, {
+    method: "post",
+    body: JSON.stringify(assignment),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
 }
 
 export function useCreateAssignmentMutation(
-    options: UseMutationOptions<unknown, unknown, Assignment>) {
-    return useMutation({
-        mutationFn: createAssignment,
-        ...options
-    });
+  options: UseMutationOptions<unknown, unknown, Assignment>
+) {
+  return useMutation({
+    mutationFn: createAssignment,
+    ...options,
+  });
 }

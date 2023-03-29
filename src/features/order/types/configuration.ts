@@ -4,7 +4,7 @@ export interface Configuration {
   amount: number;
   item: Item;
   variants: Variant[];
-  options: Option [];
+  options: Option[];
   comment: string;
 }
 
@@ -22,5 +22,5 @@ export interface Option {
 
 export interface SingleVariant {
   id: number;
-  name: string
+  name: string;
 }

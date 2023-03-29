@@ -37,4 +37,4 @@ function AmountEditor({ onIncrement, onDecrement }: AmountEditorProps) {
   );
 }
 
-export default AmountEditor
+export default AmountEditor;
