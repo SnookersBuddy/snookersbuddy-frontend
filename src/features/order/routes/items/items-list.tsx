@@ -23,7 +23,7 @@ function ItemsList({ searchTerm, items }: ItemsListProps) {
     : items;
 
   if (!targetList.length) {
-    return <Typography textAlign="center">Kein Ergebnis gefunden.</Typography>
+    return <Typography textAlign="center">Kein Ergebnis gefunden.</Typography>;
   }
 
   const itemElements = targetList.map((item) => (

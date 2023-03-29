@@ -14,7 +14,9 @@ function Landing() {
           Bestellübersicht
         </LandingButton>
         <LandingButton disabled>Bezahlübersicht</LandingButton>
-        <LandingButton disabled>Administrationsbereich</LandingButton>
+        <LandingButton component={RouterLink} to="/admin">
+          Administrationsbereich
+        </LandingButton>
       </Stack>
     </BaseLayout>
   );

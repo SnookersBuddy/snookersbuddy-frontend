@@ -1,4 +1,4 @@
-import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
+import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { Round } from "../types/round";
 
 function createRound({ assignmentId, orderedItems }: Round) {

@@ -26,7 +26,7 @@ function BaseLayout({ title, children, outletProps = {} }: BaseLayoutProps) {
         sx={{ py: 1, backgroundColor: "primary.main" }}
         position="relative"
       >
-        <Container maxWidth="xs">
+        <Container maxWidth={"xs"}>
           <Typography textAlign="center" variant="h6">
             {title}
           </Typography>

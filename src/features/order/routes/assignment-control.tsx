@@ -40,7 +40,7 @@ function AssignmentControl() {
   }
 
   if (isSuccess) {
-    return <Outlet />
+    return <Outlet />;
   }
 
   return null;

@@ -1,1 +1,1 @@
-export { default as FixedContentLayout } from './fixed-content-layout';
+export { default as FixedContentLayout } from "./fixed-content-layout";

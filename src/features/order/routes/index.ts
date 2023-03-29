@@ -1,1 +1,1 @@
-export { default as OrderRoutes } from './routes';
+export { default as OrderRoutes } from "./routes";

@@ -10,9 +10,9 @@ function getItems(): Promise<Item[]> {
 }
 
 export const itemsQueryOptions = {
-    queryKey: [],
-    queryFn: getItems
-  }
+  queryKey: [],
+  queryFn: getItems,
+};
 
 export function useItemsQuery() {
   return useQuery(itemsQueryOptions);

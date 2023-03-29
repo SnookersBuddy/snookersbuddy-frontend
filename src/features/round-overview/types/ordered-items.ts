@@ -19,9 +19,9 @@ export interface OrderedItem {
   variants: ReadonlyArray<{
     id: number;
     name: string;
-  }>
+  }>;
 }
 
-export type SortedRound = Omit<UnpreparedRound, 'orderedItems'> & {
+export type SortedRound = Omit<UnpreparedRound, "orderedItems"> & {
   orderedItemsByCategory: Record<string, ReadonlyArray<OrderedItem>>;
-}
+};

@@ -11,6 +11,7 @@ import { OrderRoutes } from "./features/order";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { RoundOverview } from "./features/round-overview";
 import { queryClient } from "./lib";
+import AdminRoutes from "./features/admin/routes/routes";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/round-overview",
     element: <RoundOverview />,
+  },
+  {
+    path: "/admin/*",
+    element: <AdminRoutes />,
   },
 ]);
 
