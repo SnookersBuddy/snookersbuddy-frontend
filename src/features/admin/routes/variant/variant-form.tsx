@@ -13,6 +13,7 @@ import {useFieldArray, useForm} from "react-hook-form";
 import {ChevronRight, Delete} from "@mui/icons-material";
 import {Variant} from "../../types/table-data";
 import {useState} from "react";
+import {getErrorText} from "../../../../utils/input-validation";
 
 type VariantFormProps = {
     onSubmit: (variant: Variant) => void;
@@ -68,6 +69,7 @@ function VariantForm({variant, onSubmit}: VariantFormProps) {
                     <TextField
                         label="Name" {...register("variantGroup.name", {required: true})}
                         error={!!errors.variantGroup}
+                        helperText={getErrorText(errors.variantGroup)}
                     />
                 </FormControl>
                 <Typography>Existierende Ausprägungen:</Typography>
@@ -76,6 +78,7 @@ function VariantForm({variant, onSubmit}: VariantFormProps) {
                         <TextField
                             label="Name"
                             error = {!!errors.singleVariants?.[index]}
+                            helperText={getErrorText(errors.singleVariants?.[index])}
                             {...register(`singleVariants.${index}.name`, {required: true})}
                             InputProps={{
                                 endAdornment: (

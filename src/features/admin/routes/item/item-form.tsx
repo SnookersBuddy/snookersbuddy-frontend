@@ -70,6 +70,7 @@ function ItemForm({item, onSubmit}: ItemProps) {
                     </FormControl>
                     <FormControl
                         error={errors.categoryId}
+                        helperText={getErrorText(errors.categoryId)}
                     >
                         <InputLabel id="item-category-label">Kategorie</InputLabel>
                         <Controller
@@ -80,7 +81,6 @@ function ItemForm({item, onSubmit}: ItemProps) {
                                     selected: v => v != 0,
                                 }
                             }}
-                            helperText={getErrorText(errors.categoryId)}
                             render={({field}) => (
                                 <Select
                                     label="Kategorie"
