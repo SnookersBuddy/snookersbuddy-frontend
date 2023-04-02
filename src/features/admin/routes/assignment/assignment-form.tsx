@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 
 import { ChevronRight } from "@mui/icons-material";
+import {getErrorText} from "../../../../utils/input-validation";
 
 type AssignmentProps = {
   onSubmit: (assignment: Assignment) => void;
@@ -74,21 +75,6 @@ function AssignmentForm({ assignment, onSubmit }: AssignmentProps) {
       </Button>
     </form>
   );
-}
-
-// TODO: make more resilient, check for multiple errors (.types).
-// TODO: also move to this to somewhere shared.
-function getErrorText(error: FieldError | undefined): string | undefined {
-  if (error === undefined) {
-    return undefined;
-  }
-
-  switch (error.type) {
-    case "required":
-      return "Bitte etwas auswählen";
-    default:
-      return "Unbekannter Validierungsfehler";
-  }
 }
 
 export default AssignmentForm;
