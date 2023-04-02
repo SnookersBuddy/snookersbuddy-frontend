@@ -1,15 +1,16 @@
-import { Route, Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Assignments from "./assignments";
 import Items from "./items";
 import Overview from "./overview";
 import Configurator from "./configurator";
 import { Suspense } from "react";
 import AssignmentControl from "./assignment-control";
+import ErrorAwareRoutes from "../../../components/error-aware-routes";
 
 function OrderRoutes() {
   return (
     <Suspense fallback="Laden...">
-      <Routes>
+      <ErrorAwareRoutes>
         <Route path=":assignmentId" element={<AssignmentControl />}>
           <Route path="items">
             <Route index element={<Items />} />
@@ -18,7 +19,7 @@ function OrderRoutes() {
           <Route path="overview" element={<Overview />} />
         </Route>
         <Route index element={<Assignments />} />
-      </Routes>
+      </ErrorAwareRoutes>
     </Suspense>
   );
 }
