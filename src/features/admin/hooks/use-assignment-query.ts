@@ -5,7 +5,7 @@ function getAssignment(assignmentId: number): Promise<Assignment> {
   return fetch(`/api/assignment/${assignmentId}`).then((res) => res.json());
 }
 
-export function useAssignmentQuery(assignmentId) {
+export function useAssignmentQuery(assignmentId: number) {
   return useQuery({
     queryKey: ["assignment", assignmentId],
     queryFn: () => getAssignment(assignmentId),

@@ -11,7 +11,6 @@ import { Link as RouterLink } from "react-router-dom";
 type ItemProps = {
   options: Option[];
   value: number;
-  optionId: (optionId: number) => void;
 };
 
 function OptionsTable({ options, value }: ItemProps) {
@@ -21,9 +20,9 @@ function OptionsTable({ options, value }: ItemProps) {
     },
   });
 
-  function deleteOption(e, row) {
+  const deleteOption = (row: any) => {
     mutate(row.id);
-  }
+  };
 
   const columnsOptions: GridColDef[] = [
     {
@@ -44,7 +43,6 @@ function OptionsTable({ options, value }: ItemProps) {
       renderCell: (params) => {
         return (
           <IconButton
-            variant="contained"
             aria-label="delete"
             color="primary"
             key={params.row.id}
@@ -65,8 +63,7 @@ function OptionsTable({ options, value }: ItemProps) {
           <IconButton
             aria-label="delete"
             color="primary"
-            onClick={(e) => deleteOption(e, params.row)}
-            variant="contained"
+            onClick={() => deleteOption(params.row)}
           >
             <DeleteIcon />
           </IconButton>

@@ -4,13 +4,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 import TabPanel from "./tab-panel";
-import { Variant } from "../../order/types/configuration";
 import { useDeleteVariantMutation } from "../hooks/use-delete-admin-mutation";
 import { queryClient } from "../../../lib";
 import { Link as RouterLink } from "react-router-dom";
+import { VariantGroup } from "../types/table-data";
 
 type VariantProps = {
-  variants: Variant[];
+  variants: VariantGroup[];
   value: number;
 };
 
@@ -21,9 +21,9 @@ function VariantTable({ variants, value }: VariantProps) {
     },
   });
 
-  function deleteVariant(e, row) {
+  const deleteVariant = (row: any) => {
     mutate(row.id);
-  }
+  };
 
   const columnsVariants: GridColDef[] = [
     {
@@ -44,7 +44,6 @@ function VariantTable({ variants, value }: VariantProps) {
       renderCell: (params) => {
         return (
           <IconButton
-            variant="contained"
             aria-label="delete"
             color="primary"
             key={params.row.id}
@@ -65,8 +64,7 @@ function VariantTable({ variants, value }: VariantProps) {
           <IconButton
             aria-label="delete"
             color="primary"
-            onClick={(e) => deleteVariant(e, params.row)}
-            variant="contained"
+            onClick={() => deleteVariant(params.row)}
           >
             <DeleteIcon />
           </IconButton>

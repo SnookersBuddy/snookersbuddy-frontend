@@ -21,9 +21,9 @@ function AssignmentTable({ assignments, value }: AssignmentProps) {
     },
   });
 
-  function deleteAssignment(e, row) {
+  const deleteAssignment = (row: any) => {
     mutate(row.id);
-  }
+  };
 
   const columnsAssignments: GridColDef[] = [
     {
@@ -50,7 +50,6 @@ function AssignmentTable({ assignments, value }: AssignmentProps) {
       renderCell: (params) => {
         return (
           <IconButton
-            variant="contained"
             aria-label="delete"
             color="primary"
             key={params.row.id}
@@ -71,8 +70,7 @@ function AssignmentTable({ assignments, value }: AssignmentProps) {
           <IconButton
             aria-label="delete"
             color="primary"
-            onClick={(e) => deleteAssignment(e, params.row)}
-            variant="outlined"
+            onClick={() => deleteAssignment(params.row)}
           >
             <DeleteIcon />
           </IconButton>

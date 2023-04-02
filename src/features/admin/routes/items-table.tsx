@@ -21,9 +21,9 @@ function ItemsTable({ items, value }: ItemProps) {
     },
   });
 
-  function deleteItem(row) {
+  const deleteItem = (row: any) => {
     mutate(row.id);
-  }
+  };
 
   const columnsItems: GridColDef[] = [
     {
@@ -50,7 +50,6 @@ function ItemsTable({ items, value }: ItemProps) {
       renderCell: (params) => {
         return (
           <IconButton
-            variant="contained"
             aria-label="delete"
             color="primary"
             key={params.row.id}
@@ -71,8 +70,7 @@ function ItemsTable({ items, value }: ItemProps) {
           <IconButton
             aria-label="delete"
             color="primary"
-            onClick={(e) => deleteItem(params.row)}
-            variant="contained"
+            onClick={() => deleteItem(params.row)}
           >
             <DeleteIcon />
           </IconButton>
@@ -94,7 +92,6 @@ function ItemsTable({ items, value }: ItemProps) {
           experimentalFeatures={{ newEditingApi: true }}
           autoHeight
           autoPageSize
-          checkboxSelectionVisibleOnly
         />
         <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <Button variant="outlined" component={RouterLink} to={`item/new`}>

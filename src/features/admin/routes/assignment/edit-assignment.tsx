@@ -11,7 +11,7 @@ const OUTLET_PROPS = { maxWidth: "lg" } as const;
 
 function EditAssignment() {
   const { assignmentId } = useStrongParams("assignmentId");
-  const { data: assignment } = useAssignmentQuery(assignmentId);
+  const { data: assignment } = useAssignmentQuery(parseInt(assignmentId, 10));
 
   const navigate = useNavigate();
   const { mutate } = useUpdateAssignmentMutation({

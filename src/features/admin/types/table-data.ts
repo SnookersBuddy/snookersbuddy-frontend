@@ -46,8 +46,10 @@ export interface CreateItemInput {
   itemName: string;
   abbreviation: string;
   categoryId: number;
-  selectedOptions: OptionWithDefault[];
-  selectedVariants: VariantWithDefault[];
+  itemId?: number;
+  availableOptions: OptionWithDefault[];
+  availableVariants: VariantWithDefault[];
+  availableCategories?: ItemCategory[];
 }
 
 export interface OptionWithDefault {
