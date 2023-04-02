@@ -15,5 +15,7 @@ export const theme = createTheme({
   },
   extraPalette: {
     cardBg: "#543F5D",
+    success: "#74BF6E",
+    error: "#BF5E58E5",
   },
 });

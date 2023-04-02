@@ -6,11 +6,11 @@ import { theme } from "../../../../lib";
 function getAssignmentColor(availability: AssignmentAvailability): string {
   switch (availability) {
     case AssignmentAvailability.Free:
-      return theme.palette.primary.main;
+      return theme.extraPalette.success;
     case AssignmentAvailability.Occupied:
     case AssignmentAvailability.Reserved:
     case AssignmentAvailability.Blocked:
-      return theme.palette.grey.A700;
+      return theme.extraPalette.error;
   }
 }
 
