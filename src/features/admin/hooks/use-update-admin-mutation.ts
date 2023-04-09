@@ -1,8 +1,9 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { ItemData, Option, Variant } from "../types/table-data";
 import { Assignment } from "../../order/types/assignment";
+import { introspect } from "../../../state/introspection";
 
-function updateOption(option: Option) {
+const updateOption = introspect("Update an option", (option: Option) => {
   const optionId = option.id;
   return fetch(`/api/option/${optionId}`, {
     method: "put",
@@ -11,7 +12,7 @@ function updateOption(option: Option) {
       "content-type": "application/json",
     },
   });
-}
+});
 
 export function useUpdateOptionMutation(
   options: UseMutationOptions<unknown, unknown, Option>
@@ -22,7 +23,7 @@ export function useUpdateOptionMutation(
   });
 }
 
-function updateItem(item: ItemData) {
+const updateItem = introspect("Update an item", (item: ItemData) => {
   const itemId = item.itemId;
   return fetch(`/api/item/${itemId}`, {
     method: "put",
@@ -31,7 +32,7 @@ function updateItem(item: ItemData) {
       "content-type": "application/json",
     },
   });
-}
+});
 
 export function useUpdateItemMutation(
   options: UseMutationOptions<unknown, unknown, ItemData>
@@ -42,7 +43,7 @@ export function useUpdateItemMutation(
   });
 }
 
-function updateVariant(variant: Variant) {
+const updateVariant = introspect("Update a variant", (variant: Variant) => {
   const variantId = variant.variantGroup.id;
   return fetch(`/api/variant/${variantId}`, {
     method: "put",
@@ -51,7 +52,7 @@ function updateVariant(variant: Variant) {
       "content-type": "application/json",
     },
   });
-}
+});
 
 export function useUpdateVariantMutation(
   options: UseMutationOptions<unknown, unknown, Variant>
@@ -62,7 +63,7 @@ export function useUpdateVariantMutation(
   });
 }
 
-function updateAssignment(assignment: Assignment) {
+const updateAssignment = introspect("Update an assignment", (assignment: Assignment) => {
   const assignmentId = assignment.id;
   return fetch(`/api/assignment/${assignmentId}`, {
     method: "put",
@@ -71,7 +72,7 @@ function updateAssignment(assignment: Assignment) {
       "content-type": "application/json",
     },
   });
-}
+});
 
 export function useUpdateAssignmentMutation(
   options: UseMutationOptions<unknown, unknown, Assignment>

@@ -1,13 +1,14 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { Assignment } from "../types/assignment";
+import { introspect } from "../../../state/introspection";
 
-function getAssignments(): Promise<Assignment[]> {
+const getAssignments = introspect("List all assignments", () => {
   return fetch("/api/assignments")
     .then((res) => res.json())
     .then((res: Record<"assignments", Assignment[]>) =>
       res.assignments.sort((a, b) => a.id - b.id)
     );
-}
+});
 
 export const assignmentsQueryOptions = {
   queryKey: ["assignments"],

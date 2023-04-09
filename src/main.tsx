@@ -12,23 +12,32 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { RoundOverview } from "./features/round-overview";
 import { queryClient } from "./lib";
 import AdminRoutes from "./features/admin/routes/routes";
+import DefaultErrorPage from "./components/default-error-page";
+import Root from "./root";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Landing />,
-  },
-  {
-    path: "/assignments/*",
-    element: <OrderRoutes />,
-  },
-  {
-    path: "/round-overview",
-    element: <RoundOverview />,
-  },
-  {
-    path: "/admin/*",
-    element: <AdminRoutes />,
+    element: <Root />,
+    errorElement: <DefaultErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Landing />,
+      },
+      {
+        path: "/assignments/*",
+        element: <OrderRoutes />,
+      },
+      {
+        path: "/round-overview",
+        element: <RoundOverview />,
+      },
+      {
+        path: "/admin/*",
+        element: <AdminRoutes />,
+      },
+    ],
   },
 ]);
 
