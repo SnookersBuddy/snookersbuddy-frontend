@@ -17,6 +17,7 @@ function EditOption() {
   const { mutate } = useUpdateOptionMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(["table-data"]);
+      queryClient.invalidateQueries(["option"]);
       navigate(-1);
     },
   });

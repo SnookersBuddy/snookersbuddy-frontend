@@ -16,11 +16,13 @@ function EditVariant() {
   const { mutate } = useUpdateVariantMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(["table-data"]);
+      queryClient.invalidateQueries(["variant"]);
       navigate(-1);
     },
   });
 
   const handleSubmit = (variant: Variant) => {
+    console.log("HÄ")
     mutate(variant);
   };
 

@@ -11,7 +11,7 @@ function CreateAssignment() {
   const navigate = useNavigate();
   const { mutate } = useCreateAssignmentMutation({
     onSuccess: () => {
-      queryClient.invalidateQueries([["table-data"]]);
+      queryClient.invalidateQueries(["table-data"]);
       navigate(-1);
     },
   });

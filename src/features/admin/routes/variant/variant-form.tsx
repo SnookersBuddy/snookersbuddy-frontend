@@ -35,7 +35,7 @@ function VariantForm({variant, onSubmit}: VariantFormProps) {
         },
     });
 
-    const updateVariant = (data: Variant) => () => {
+    const updateVariant = (data: Variant) => {
         onSubmit(data);
     };
 
@@ -67,9 +67,10 @@ function VariantForm({variant, onSubmit}: VariantFormProps) {
             <Stack spacing={2}>
                 <FormControl>
                     <TextField
-                        label="Name" {...register("variantGroup.name", {required: true})}
-                        error={!!errors.variantGroup}
-                        helperText={getErrorText(errors.variantGroup)}
+                        label="Name"
+                        error={!!errors.variantGroup?.name}
+                        helperText={getErrorText(errors.variantGroup?.name)}
+                        {...register("variantGroup.name", {required: true})}
                     />
                 </FormControl>
                 <Typography>Existierende Ausprägungen:</Typography>
@@ -77,8 +78,8 @@ function VariantForm({variant, onSubmit}: VariantFormProps) {
                     <FormControl key={inputId}>
                         <TextField
                             label="Name"
-                            error = {!!errors.singleVariants?.[index]}
-                            helperText={getErrorText(errors.singleVariants?.[index])}
+                            error = {!!errors.singleVariants?.[index]?.name}
+                            helperText={getErrorText(errors.singleVariants?.[index]?.name)}
                             {...register(`singleVariants.${index}.name`, {required: true})}
                             InputProps={{
                                 endAdornment: (

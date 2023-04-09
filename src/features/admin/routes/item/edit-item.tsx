@@ -19,6 +19,7 @@ function EditItem() {
   const { mutate } = useUpdateItemMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(["table-data"]);
+      queryClient.invalidateQueries(["item"]);
       navigate(-1);
     },
   });
