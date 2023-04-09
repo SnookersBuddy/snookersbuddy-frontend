@@ -5,16 +5,17 @@ import { useMutation } from "@tanstack/react-query";
 import { Assignment } from "../types/assignment";
 import { Typography } from "@mui/material";
 import { useActiveAssignment } from "../hooks/use-active-assignment";
+import { introspect } from "../../../state/introspection";
 
-function createOrder(assignment: Assignment) {
-  return fetch("/api/order", {
+const createOrder = introspect("Create new order", (assignment: Assignment) =>
+  fetch("/api/order", {
     body: JSON.stringify({ assignment }),
     method: "post",
     headers: {
       "content-type": "application/json",
     },
-  });
-}
+  })
+);
 
 function AssignmentControl() {
   const assignment = useActiveAssignment();

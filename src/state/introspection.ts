@@ -11,7 +11,7 @@ export type IntrospectionState = {
   registeredFunctions: Symbol[];
   functionToFail: Symbol | null;
   registerFunction: (target: Symbol) => void;
-  setFunctionToFail: (func: Symbol) => void;
+  setFunctionToFail: (func: Symbol | null) => void;
 };
 
 export const useIntrospectionStore = create<IntrospectionState>()((set) => ({
@@ -23,7 +23,7 @@ export const useIntrospectionStore = create<IntrospectionState>()((set) => ({
         draft.registeredFunctions.push(target);
       })
     ),
-  setFunctionToFail: (func: Symbol) =>
+  setFunctionToFail: (func: Symbol | null) =>
     set(
       produce((draft: IntrospectionState) => {
         draft.functionToFail = func;

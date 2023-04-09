@@ -1,16 +1,17 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { CreateItemInput, Option, Variant } from "../types/table-data";
 import { Assignment } from "../../order/types/assignment";
+import { introspect } from "../../../state/introspection";
 
-function createOption(option: Option) {
-  return fetch(`/api/option`, {
+const createOption = introspect("Create an option", (option: Option) =>
+  fetch(`/api/option`, {
     method: "post",
     body: JSON.stringify(option),
     headers: {
       "content-type": "application/json",
     },
-  });
-}
+  })
+);
 
 export function useCreateOptionMutation(
   options: UseMutationOptions<unknown, unknown, Option>
@@ -21,15 +22,15 @@ export function useCreateOptionMutation(
   });
 }
 
-function createItem(item: CreateItemInput) {
-  return fetch(`/api/item`, {
+const createItem = introspect("Create an item", (item: CreateItemInput) =>
+  fetch(`/api/item`, {
     method: "post",
     body: JSON.stringify(item),
     headers: {
       "content-type": "application/json",
     },
-  });
-}
+  })
+);
 
 export function useCreateItemMutation(
   options: UseMutationOptions<unknown, unknown, CreateItemInput>
@@ -40,15 +41,15 @@ export function useCreateItemMutation(
   });
 }
 
-function createVariant(variant: Variant) {
-  return fetch(`/api/variant`, {
+const createVariant = introspect("Create a variant", (variant: Variant) =>
+  fetch(`/api/variant`, {
     method: "post",
     body: JSON.stringify(variant),
     headers: {
       "content-type": "application/json",
     },
-  });
-}
+  })
+);
 
 export function useCreateVariantMutation(
   options: UseMutationOptions<unknown, unknown, Variant>
@@ -59,15 +60,17 @@ export function useCreateVariantMutation(
   });
 }
 
-function createAssignment(assignment: Assignment) {
-  return fetch(`/api/assignment`, {
-    method: "post",
-    body: JSON.stringify(assignment),
-    headers: {
-      "content-type": "application/json",
-    },
-  });
-}
+const createAssignment = introspect(
+  "Create an assignment",
+  (assignment: Assignment) =>
+    fetch(`/api/assignment`, {
+      method: "post",
+      body: JSON.stringify(assignment),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+);
 
 export function useCreateAssignmentMutation(
   options: UseMutationOptions<unknown, unknown, Assignment>

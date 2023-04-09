@@ -1,11 +1,12 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
+import { introspect } from "../../../state/introspection";
 
-function deleteOption(optionId: number) {
-  return fetch(`/api/option/${optionId}`, {
+const deleteOption = introspect("Delete an option", (optionId: number) =>
+  fetch(`/api/option/${optionId}`, {
     method: "delete",
     headers: {},
-  });
-}
+  })
+);
 
 export function useDeleteOptionMutation(
   options: UseMutationOptions<unknown, unknown, number>
@@ -16,12 +17,14 @@ export function useDeleteOptionMutation(
   });
 }
 
-function deleteAssignment(assignmentId: number) {
-  return fetch(`/api/assignment/${assignmentId}`, {
-    method: "delete",
-    headers: {},
-  });
-}
+const deleteAssignment = introspect(
+  "Delete an assignment",
+  (assignmentId: number) =>
+    fetch(`/api/assignment/${assignmentId}`, {
+      method: "delete",
+      headers: {},
+    })
+);
 
 export function useDeleteAssignmentMutation(
   options: UseMutationOptions<unknown, unknown, number>
@@ -32,12 +35,12 @@ export function useDeleteAssignmentMutation(
   });
 }
 
-function deleteItem(itemId: number) {
-  return fetch(`/api/item/${itemId}`, {
+const deleteItem = introspect("Delete item", (itemId: number) =>
+  fetch(`/api/item/${itemId}`, {
     method: "delete",
     headers: {},
-  });
-}
+  })
+);
 
 export function useDeleteItemMutation(
   options: UseMutationOptions<unknown, unknown, number>
@@ -48,12 +51,12 @@ export function useDeleteItemMutation(
   });
 }
 
-function deleteVariant(variantId: number) {
-  return fetch(`/api/variant/${variantId}`, {
+const deleteVariant = introspect("Delete a variant", (variantId: number) =>
+  fetch(`/api/variant/${variantId}`, {
     method: "delete",
     headers: {},
-  });
-}
+  })
+);
 
 export function useDeleteVariantMutation(
   options: UseMutationOptions<unknown, unknown, number>

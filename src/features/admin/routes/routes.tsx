@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Admin from "./admin";
 import CreateOption from "./option/create-option";
 import EditOption from "./option/edit-option";
@@ -9,11 +9,12 @@ import EditItem from "./item/edit-item";
 import EditVariant from "./variant/edit-variant";
 import CreateVariant from "./variant/create-variant";
 import CreateItem from "./item/create-item";
+import ErrorAwareRoutes from "../../../components/error-aware-routes";
 
 function AdminRoutes() {
   return (
     <Suspense fallback="Laden...">
-      <Routes>
+      <ErrorAwareRoutes>
         <Route path="option/:optionId" element={<EditOption />} />
         <Route path="option/new" element={<CreateOption />} />
 
@@ -27,7 +28,7 @@ function AdminRoutes() {
         <Route path="item/new" element={<CreateItem />} />
 
         <Route index element={<Admin />} />
-      </Routes>
+      </ErrorAwareRoutes>
     </Suspense>
   );
 }
