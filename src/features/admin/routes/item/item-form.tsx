@@ -65,7 +65,7 @@ function ItemForm({ item, onSubmit }: ItemProps) {
           <FormControl>
             <TextField
               label="Name"
-              error={errors.itemName}
+              error={!!errors.itemName}
               helperText={getErrorText(errors.itemName)}
               {...register("itemName", { required: true })}
             />
@@ -73,15 +73,12 @@ function ItemForm({ item, onSubmit }: ItemProps) {
           <FormControl>
             <TextField
               label="Abkürzung"
-              error={errors.abbreviation}
+              error={!!errors.abbreviation}
               helperText={getErrorText(errors.abbreviation)}
               {...register("abbreviation", { required: true })}
             />
           </FormControl>
-          <FormControl
-            error={errors.categoryId}
-            helperText={getErrorText(errors.categoryId)}
-          >
+          <FormControl error={!!errors.categoryId}>
             <InputLabel id="item-category-label">Kategorie</InputLabel>
             <Controller
               name="categoryId"

@@ -64,7 +64,7 @@ function ItemVariantForm({ variant, index }: ItemVariantFormProps) {
         <Typography variant="h5">{variant.name}</Typography>
         <FormControl
           sx={{ minWidth: 200 }}
-          error={errors.availableVariants?.[index]}
+          error={!!errors.availableVariants?.[index]}
         >
           <InputLabel id={`variant-${variant.variantControlId}-default-label`}>
             Standard auswählen
