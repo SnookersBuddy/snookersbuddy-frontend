@@ -13,6 +13,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { ChevronRight, Delete } from "@mui/icons-material";
 import { Variant } from "../../types/table-data";
 import { useState } from "react";
+import { getErrorText } from "../../../../utils/input-validation";
 
 type VariantFormProps = {
   onSubmit: (variant: Variant) => void;
@@ -20,7 +21,12 @@ type VariantFormProps = {
 };
 
 function VariantForm({ variant, onSubmit }: VariantFormProps) {
-  const { register, handleSubmit, control } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm({
     defaultValues: variant ?? {
       variantGroup: {
         name: "",
@@ -29,7 +35,7 @@ function VariantForm({ variant, onSubmit }: VariantFormProps) {
     },
   });
 
-  const updateVariant = (data: Variant) => () => {
+  const updateVariant = (data: Variant) => {
     onSubmit(data);
   };
 
@@ -44,8 +50,8 @@ function VariantForm({ variant, onSubmit }: VariantFormProps) {
   );
 
   const [newSingleVariantName, setNewSingleVariantName] = useState("");
+
   const handleAddSingleVariantClick = () => {
-    console.log(newSingleVariantName);
     append({
       name: newSingleVariantName,
     });
@@ -60,14 +66,21 @@ function VariantForm({ variant, onSubmit }: VariantFormProps) {
     <form onSubmit={handleSubmit(updateVariant)}>
       <Stack spacing={2}>
         <FormControl>
-          <TextField label="Name" {...register("variantGroup.name")} />
+          <TextField
+            label="Name"
+            error={!!errors.variantGroup?.name}
+            helperText={getErrorText(errors.variantGroup?.name)}
+            {...register("variantGroup.name", { required: true })}
+          />
         </FormControl>
         <Typography>Existierende Ausprägungen:</Typography>
         {variants.map(([index, inputId]) => (
           <FormControl key={inputId}>
             <TextField
               label="Name"
-              {...register(`singleVariants.${index}.name`)}
+              error={!!errors.singleVariants?.[index]?.name}
+              helperText={getErrorText(errors.singleVariants?.[index]?.name)}
+              {...register(`singleVariants.${index}.name`, { required: true })}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">

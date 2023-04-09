@@ -6,7 +6,7 @@ import { useUpdateItemMutation } from "../../hooks/use-update-admin-mutation";
 import { queryClient } from "../../../../lib";
 import { ItemData } from "../../types/table-data";
 import { useNavigate } from "react-router-dom";
-import { produce } from 'immer';
+import { produce } from "immer";
 
 const OUTLET_PROPS = { maxWidth: "lg" } as const;
 
@@ -15,10 +15,10 @@ function EditItem() {
   const { itemId } = useStrongParams("itemId");
   const { data: item } = useCreateItemDataQuery(parseInt(itemId, 10));
 
-
   const { mutate } = useUpdateItemMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(["table-data"]);
+      queryClient.invalidateQueries(["item"]);
       navigate(-1);
     },
   });
@@ -37,7 +37,7 @@ function EditItem() {
       draft.availableOptions = item.availableOptions.filter(
         (option) => option.selected
       );
-    })
+    });
 
     mutate(itemWithoutUnusedVariants);
   };

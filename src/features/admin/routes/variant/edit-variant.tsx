@@ -16,6 +16,7 @@ function EditVariant() {
   const { mutate } = useUpdateVariantMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(["table-data"]);
+      queryClient.invalidateQueries(["variant"]);
       navigate(-1);
     },
   });

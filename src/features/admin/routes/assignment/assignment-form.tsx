@@ -1,5 +1,5 @@
 import { Assignment } from "../../../order/types/assignment";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, FieldError, useForm } from "react-hook-form";
 import {
   Button,
   Checkbox,
@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 
 import { ChevronRight } from "@mui/icons-material";
+import { getErrorText } from "../../../../utils/input-validation";
 
 type AssignmentProps = {
   onSubmit: (assignment: Assignment) => void;
@@ -17,7 +18,12 @@ type AssignmentProps = {
 };
 
 function AssignmentForm({ assignment, onSubmit }: AssignmentProps) {
-  const { handleSubmit, register, control } = useForm({
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors },
+  } = useForm({
     defaultValues: assignment,
   });
 
@@ -29,13 +35,20 @@ function AssignmentForm({ assignment, onSubmit }: AssignmentProps) {
     <form onSubmit={handleSubmit(updateAssignment)}>
       <Stack spacing={2}>
         <FormControl>
-          <TextField label="Name" {...register("displayName")}></TextField>
+          <TextField
+            label="Name"
+            error={!!errors.displayName}
+            helperText={getErrorText(errors.displayName)}
+            {...register("displayName", { required: true })}
+          />
         </FormControl>
         <FormControl>
           <TextField
             label="Abkürzung"
-            {...register("abbreviation")}
-          ></TextField>
+            error={!!errors.abbreviation}
+            helperText={getErrorText(errors.abbreviation)}
+            {...register("abbreviation", { required: true })}
+          />
         </FormControl>
         <FormControlLabel
           label="Stammkunde"
@@ -43,6 +56,7 @@ function AssignmentForm({ assignment, onSubmit }: AssignmentProps) {
             <Controller
               control={control}
               name="custom"
+              defaultValue={false}
               render={({ field }) => (
                 <Checkbox checked={field.value} {...field} />
               )}

@@ -25,7 +25,12 @@ type ItemVariantFormProps = {
 };
 
 function ItemVariantForm({ variant, index }: ItemVariantFormProps) {
-  const { control, watch, setValue } = useFormContext<ItemData>();
+  const {
+    control,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useFormContext<ItemData>();
 
   const variantName =
     `availableVariants.${index}` as `availableVariants.${number}`;
@@ -57,7 +62,10 @@ function ItemVariantForm({ variant, index }: ItemVariantFormProps) {
     <Stack spacing={2}>
       <Box display="flex" alignItems="baseline" justifyContent="space-between">
         <Typography variant="h5">{variant.name}</Typography>
-        <FormControl sx={{ minWidth: 200 }}>
+        <FormControl
+          sx={{ minWidth: 200 }}
+          error={errors.availableVariants?.[index]}
+        >
           <InputLabel id={`variant-${variant.variantControlId}-default-label`}>
             Standard auswählen
           </InputLabel>
@@ -76,6 +84,12 @@ function ItemVariantForm({ variant, index }: ItemVariantFormProps) {
                 const inputEvent = event as ChangeEvent<HTMLSelectElement>;
                 const output = Number.parseInt(inputEvent.target.value);
                 return isNaN(output) ? 0 : output;
+              },
+            }}
+            rules={{
+              validate: {
+                selected: (v) =>
+                  v !== 0 || selectedSingleVariantsElements.length == 0,
               },
             }}
             render={({ field }) => (

@@ -24,6 +24,7 @@ import { ChevronRight } from "@mui/icons-material";
 import ItemVariantForm from "./item-variant-form";
 import { TransformController } from "../../../../components/transform-controller";
 import { ChangeEvent } from "react";
+import { getErrorText } from "../../../../utils/input-validation";
 
 type ItemProps = {
   item: ItemData;
@@ -34,7 +35,12 @@ function ItemForm({ item, onSubmit }: ItemProps) {
   const formValues = useForm({
     defaultValues: item,
   });
-  const { handleSubmit, register, control } = formValues;
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors },
+  } = formValues;
 
   const updateItem = (data: ItemData) => {
     onSubmit(data);
@@ -57,20 +63,34 @@ function ItemForm({ item, onSubmit }: ItemProps) {
       <form onSubmit={handleSubmit(updateItem)}>
         <Stack spacing={2}>
           <FormControl>
-            <TextField label="Name" {...register("itemName")}></TextField>
+            <TextField
+              label="Name"
+              error={errors.itemName}
+              helperText={getErrorText(errors.itemName)}
+              {...register("itemName", { required: true })}
+            />
           </FormControl>
           <FormControl>
             <TextField
               label="Abkürzung"
-              {...register("abbreviation")}
-            ></TextField>
+              error={errors.abbreviation}
+              helperText={getErrorText(errors.abbreviation)}
+              {...register("abbreviation", { required: true })}
+            />
           </FormControl>
-          <FormControl>
+          <FormControl
+            error={errors.categoryId}
+            helperText={getErrorText(errors.categoryId)}
+          >
             <InputLabel id="item-category-label">Kategorie</InputLabel>
             <Controller
               name="categoryId"
               control={control}
-              rules={{ required: true }}
+              rules={{
+                validate: {
+                  selected: (v) => v !== 0,
+                },
+              }}
               render={({ field }) => (
                 <Select
                   label="Kategorie"
