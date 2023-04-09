@@ -89,7 +89,7 @@ function ItemVariantForm({ variant, index }: ItemVariantFormProps) {
             rules={{
               validate: {
                 selected: (v) =>
-                  v != 0 || selectedSingleVariantsElements.length == 0,
+                  v !== 0 || selectedSingleVariantsElements.length == 0,
               },
             }}
             render={({ field }) => (

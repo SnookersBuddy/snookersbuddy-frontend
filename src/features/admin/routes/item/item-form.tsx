@@ -88,7 +88,7 @@ function ItemForm({ item, onSubmit }: ItemProps) {
               control={control}
               rules={{
                 validate: {
-                  selected: (v) => v != 0,
+                  selected: (v) => v !== 0,
                 },
               }}
               render={({ field }) => (
