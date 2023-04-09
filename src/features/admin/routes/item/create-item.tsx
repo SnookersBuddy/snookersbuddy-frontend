@@ -21,15 +21,14 @@ function CreateItem() {
   });
 
   const handleSubmit = (itemIn: ItemData) => {
-    const item = produce(itemIn, draft => {
+    const item = produce(itemIn, (draft) => {
       draft.availableVariants.forEach(
         (variantGroup) =>
           (variantGroup.variants = variantGroup.variants.filter(
             (singleVariant) => singleVariant.selected
           ))
       );
-    })
-
+    });
 
     mutate({
       itemName: item.itemName,

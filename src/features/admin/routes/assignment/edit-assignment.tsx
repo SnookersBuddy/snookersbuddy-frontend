@@ -17,7 +17,7 @@ function EditAssignment() {
   const { mutate } = useUpdateAssignmentMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(["table-data"]);
-      queryClient.invalidateQueries(["assignment"])
+      queryClient.invalidateQueries(["assignment"]);
       navigate(-1);
     },
   });
@@ -28,9 +28,7 @@ function EditAssignment() {
 
   return (
     <BaseLayout title={"Bearbeite Tisch"} outletProps={OUTLET_PROPS}>
-      <AssignmentForm
-        assignment={assignment}
-        onSubmit={handleSubmit}/>
+      <AssignmentForm assignment={assignment} onSubmit={handleSubmit} />
     </BaseLayout>
   );
 }

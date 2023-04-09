@@ -22,7 +22,6 @@ function EditVariant() {
   });
 
   const handleSubmit = (variant: Variant) => {
-    console.log("HÄ")
     mutate(variant);
   };
 

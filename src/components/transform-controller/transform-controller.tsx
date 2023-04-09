@@ -53,7 +53,6 @@ function TransformController<
   transform,
   ...rest
 }: TransformControllerProps<TFieldValues, TName, TInput>) {
-
   return (
     <Controller
       {...rest}

@@ -44,8 +44,6 @@ export function useUpdateItemMutation(
 
 function updateVariant(variant: Variant) {
   const variantId = variant.variantGroup.id;
-  console.log("TEST")
-  console.log(variant)
   return fetch(`/api/variant/${variantId}`, {
     method: "put",
     body: JSON.stringify(variant),

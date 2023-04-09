@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import { ChevronRight } from "@mui/icons-material";
-import {getErrorText} from "../../../../utils/input-validation";
+import { getErrorText } from "../../../../utils/input-validation";
 
 type AssignmentProps = {
   onSubmit: (assignment: Assignment) => void;
