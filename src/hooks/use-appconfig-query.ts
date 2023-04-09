@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AppConfig } from "../types/app-config";
 
 const getAppConfig = introspect(
-  "Get an assignment",
+  "Get the app config",
   (): Promise<AppConfig> => fetch(`/api/appconfig`).then((res) => res.json())
 );
 
