@@ -5,16 +5,17 @@ import {
 } from "@tanstack/react-query";
 import { SortedRound, UnpreparedRound } from "../types";
 import { introspect } from "../../../state/introspection";
+import axios from "axios";
 
 const fetchOpenRounds = introspect(
   "Fetch unprepared rounds",
   ({ signal }: QueryFunctionContext): Promise<SortedRound[]> =>
-    fetch("/api/round?status=unprepared", {
-      signal,
-    })
-      .then((res) => res.json())
-      .then((res: UnpreparedRound[]) =>
-        res
+    axios
+      .get<UnpreparedRound[]>("/api/round?status=unprepared", {
+        signal,
+      })
+      .then((res) =>
+        res.data
           .map((value) => ({
             id: value.id,
             orderedAt: value.orderedAt,

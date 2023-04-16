@@ -1,19 +1,13 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { Round } from "../types/round";
 import { introspect } from "../../../state/introspection";
+import axios from "axios";
 
 const createRound = introspect(
   "Create a round in current order",
   ({ assignmentId, orderedItems }: Round) => {
     const url = `/api/assignment/${assignmentId}/current-order/round`;
-
-    return fetch(url, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(orderedItems),
-    });
+    return axios.post(url, orderedItems).then((res) => res.data);
   }
 );
 

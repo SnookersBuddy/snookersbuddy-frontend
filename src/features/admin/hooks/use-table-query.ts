@@ -1,10 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { TableData } from "../types/table-data";
 import { introspect } from "../../../state/introspection";
+import axios from "axios";
 
 const getTables = introspect(
   "Get admin table data",
-  (): Promise<TableData> => fetch("/api/table-data").then((res) => res.json())
+  ({ signal }: QueryFunctionContext): Promise<TableData> => axios.get("/api/table-data", { signal }).then(res => res.data)
 );
 
 export const tableDataQueryOptions = {

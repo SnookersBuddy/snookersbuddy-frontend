@@ -1,16 +1,11 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { introspect } from "../../../state/introspection";
+import axios from "axios";
 
 const updateMarkRoundAsPrepared = introspect(
   "Mark round as prepared",
   (roundId: number) =>
-    fetch(`/api/round/${roundId}/state`, {
-      method: "put",
-      body: JSON.stringify({ state: "PREPARED" }),
-      headers: {
-        "content-type": "application/json",
-      },
-    })
+    axios.put(`/api/round/${roundId}/state`, { state: "PREPARED" }).then(res => res.data)
 );
 
 export function usePrepareRoundMutation(

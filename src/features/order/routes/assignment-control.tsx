@@ -6,15 +6,10 @@ import { Assignment } from "../types/assignment";
 import { Typography } from "@mui/material";
 import { useActiveAssignment } from "../hooks/use-active-assignment";
 import { introspect } from "../../../state/introspection";
+import axios from "axios";
 
 const createOrder = introspect("Create new order", (assignment: Assignment) =>
-  fetch("/api/order", {
-    body: JSON.stringify({ assignment }),
-    method: "post",
-    headers: {
-      "content-type": "application/json",
-    },
-  })
+  axios.post("/api/order", { assignment }).then(res => res.data)
 );
 
 function AssignmentControl() {

@@ -1,11 +1,9 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { introspect } from "../../../state/introspection";
+import axios from "axios";
 
 const deleteOption = introspect("Delete an option", (optionId: number) =>
-  fetch(`/api/option/${optionId}`, {
-    method: "delete",
-    headers: {},
-  })
+  axios.delete(`/api/option/${optionId}`).then((res) => res.data)
 );
 
 export function useDeleteOptionMutation(
@@ -19,11 +17,7 @@ export function useDeleteOptionMutation(
 
 const deleteAssignment = introspect(
   "Delete an assignment",
-  (assignmentId: number) =>
-    fetch(`/api/assignment/${assignmentId}`, {
-      method: "delete",
-      headers: {},
-    })
+  (assignmentId: number) => axios.delete(`/api/assignment/${assignmentId}`).then(res => res.data)
 );
 
 export function useDeleteAssignmentMutation(
@@ -36,10 +30,7 @@ export function useDeleteAssignmentMutation(
 }
 
 const deleteItem = introspect("Delete item", (itemId: number) =>
-  fetch(`/api/item/${itemId}`, {
-    method: "delete",
-    headers: {},
-  })
+  axios.delete(`/api/item/${itemId}`).then(res => res.data),
 );
 
 export function useDeleteItemMutation(
@@ -52,10 +43,7 @@ export function useDeleteItemMutation(
 }
 
 const deleteVariant = introspect("Delete a variant", (variantId: number) =>
-  fetch(`/api/variant/${variantId}`, {
-    method: "delete",
-    headers: {},
-  })
+  axios.delete(`/api/variant/${variantId}`).then(res => res.data)
 );
 
 export function useDeleteVariantMutation(

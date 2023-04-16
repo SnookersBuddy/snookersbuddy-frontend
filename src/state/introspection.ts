@@ -38,7 +38,9 @@ export function introspect<T extends Function>(name: string, target: T): T {
   return ((...args: unknown[]) => {
     const { functionToFail } = useIntrospectionStore.getState();
     if (functionToFail === symbol) {
-      console.info(`[Introspection] Failing function '${name}' due to introspection.`)
+      console.info(
+        `[Introspection] Failing function '${name}' due to introspection.`
+      );
       return Promise.reject(
         new IntrospectionError(`${name} failed due to introspection`)
       );

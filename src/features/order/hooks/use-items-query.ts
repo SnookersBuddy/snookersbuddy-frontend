@@ -1,15 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { Item } from "../types/item";
 import { introspect } from "../../../state/introspection";
+import axios from "axios";
 
 const getItems = introspect(
   "Get all items",
-  (): Promise<Item[]> =>
-    fetch("/api/items")
-      .then((res) => res.json())
-      .then((res: Record<"items", Item[]>) =>
-        res.items.sort((a, b) => a.id - b.id)
-      )
+  ({ signal }: QueryFunctionContext): Promise<Item[]> =>
+    axios
+      .get<Record<"items", Item[]>>("/api/items", { signal })
+      .then((res) => res.data.items.sort((a, b) => a.id - b.id))
 );
 
 export const itemsQueryOptions = {

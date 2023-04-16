@@ -2,15 +2,10 @@ import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { CreateItemInput, Option, Variant } from "../types/table-data";
 import { Assignment } from "../../order/types/assignment";
 import { introspect } from "../../../state/introspection";
+import axios from "axios";
 
 const createOption = introspect("Create an option", (option: Option) =>
-  fetch(`/api/option`, {
-    method: "post",
-    body: JSON.stringify(option),
-    headers: {
-      "content-type": "application/json",
-    },
-  })
+  axios.post(`/api/option`, option).then(res => res.data)
 );
 
 export function useCreateOptionMutation(
@@ -23,13 +18,7 @@ export function useCreateOptionMutation(
 }
 
 const createItem = introspect("Create an item", (item: CreateItemInput) =>
-  fetch(`/api/item`, {
-    method: "post",
-    body: JSON.stringify(item),
-    headers: {
-      "content-type": "application/json",
-    },
-  })
+  axios.post(`/api/item`, item).then(res => res.data)
 );
 
 export function useCreateItemMutation(
@@ -42,13 +31,7 @@ export function useCreateItemMutation(
 }
 
 const createVariant = introspect("Create a variant", (variant: Variant) =>
-  fetch(`/api/variant`, {
-    method: "post",
-    body: JSON.stringify(variant),
-    headers: {
-      "content-type": "application/json",
-    },
-  })
+  axios.post(`/api/variant`, variant).then(res => res.data)
 );
 
 export function useCreateVariantMutation(
@@ -62,14 +45,7 @@ export function useCreateVariantMutation(
 
 const createAssignment = introspect(
   "Create an assignment",
-  (assignment: Assignment) =>
-    fetch(`/api/assignment`, {
-      method: "post",
-      body: JSON.stringify(assignment),
-      headers: {
-        "content-type": "application/json",
-      },
-    })
+  (assignment: Assignment) => axios.post(`/api/assignment`, assignment).then(res => res.data)
 );
 
 export function useCreateAssignmentMutation(

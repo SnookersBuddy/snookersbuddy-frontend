@@ -1,1 +1,1 @@
-export { default } from './error-aware-routes';
+export { default } from "./error-aware-routes";
