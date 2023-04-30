@@ -72,7 +72,8 @@ function Configurator() {
   };
 
   const fastCheckout = () => {
-    let list = formValues.getValues();
+
+    //TODO Add validation here, if there is some validation needed in future (such as max char for comment).
     const chosenOptions: Option[] = formValues
       .getValues()
       .options.filter((option) => option.defaultValue)
@@ -81,6 +82,7 @@ function Configurator() {
         name: option.name,
         defaultValue: option.defaultValue,
       }));
+
     const chosenVariants: SingleVariant[] = formValues
       .getValues()
       .variants.map(
@@ -90,12 +92,12 @@ function Configurator() {
           )!
       );
 
-    let orderedItem = {
-      item: list.item,
+    const orderedItem = {
+      item: formValues.getValues().item,
       chosenVariants: chosenVariants,
       chosenOptions: chosenOptions,
-      comment: list.comment,
-      amount: list.amount,
+      comment: formValues.getValues().comment,
+      amount: formValues.getValues().amount,
     };
     const orderedItems: OrderedItem[] = [];
     orderedItems.push(orderedItem);
