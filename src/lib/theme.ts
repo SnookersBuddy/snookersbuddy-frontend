@@ -12,6 +12,9 @@ export const theme = createTheme({
       ...deepPurple,
       main: "#6D5676",
     },
+    success: {
+      main: "#63BCE4",
+    },
   },
   extraPalette: {
     cardBg: "#543F5D",

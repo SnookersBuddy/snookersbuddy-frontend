@@ -5,7 +5,8 @@ import axios from "axios";
 
 const getTables = introspect(
   "Get admin table data",
-  ({ signal }: QueryFunctionContext): Promise<TableData> => axios.get("/api/table-data", { signal }).then(res => res.data)
+  ({ signal }: QueryFunctionContext): Promise<TableData> =>
+    axios.get("/api/table-data", { signal }).then((res) => res.data)
 );
 
 export const tableDataQueryOptions = {

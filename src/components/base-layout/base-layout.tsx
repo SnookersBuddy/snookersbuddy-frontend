@@ -1,4 +1,4 @@
-import { ReactNode, Suspense } from "react";
+import { ReactNode } from "react";
 import {
   AppBar,
   Container,
@@ -6,9 +6,10 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { Link as RouterLink, useMatch } from "react-router-dom";
+import { Link as RouterLink, useMatch, useNavigate } from "react-router-dom";
 import { theme } from "../../lib";
-import { Home } from "@mui/icons-material";
+import { Suspense } from "react";
+import { ArrowBack, Home } from "@mui/icons-material";
 
 type BaseLayoutProps = {
   title: string;
@@ -19,6 +20,11 @@ type BaseLayoutProps = {
 function BaseLayout({ title, children, outletProps = {} }: BaseLayoutProps) {
   const { sx, ...outletPropsRest } = outletProps;
   const isAnwendungsauswahl = useMatch("/");
+  const navigate = useNavigate();
+
+  const navigateBack = () => {
+    navigate(-1);
+  };
 
   return (
     <>
@@ -26,6 +32,20 @@ function BaseLayout({ title, children, outletProps = {} }: BaseLayoutProps) {
         sx={{ py: 1, backgroundColor: "primary.main" }}
         position="relative"
       >
+        {!isAnwendungsauswahl && (
+          <IconButton
+            aria-label="back"
+            onClick={navigateBack}
+            sx={{
+              position: "absolute",
+              left: theme.spacing(1),
+              top: "50%",
+              transform: "translateY(-50%)",
+            }}
+          >
+            <ArrowBack />
+          </IconButton>
+        )}
         <Container maxWidth={"xs"}>
           <Typography textAlign="center" variant="h6">
             {title}

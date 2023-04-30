@@ -1,4 +1,4 @@
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -7,10 +7,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Configuration } from "../../types/configuration";
+import {
+  Configuration,
+  Option,
+  SingleVariant,
+} from "../../types/configuration";
 import { BaseLayout } from "../../../../components";
 import { FormProvider, useForm } from "react-hook-form";
-import { Cancel, ChevronRight } from "@mui/icons-material";
+import { ChevronRight, DoubleArrow } from "@mui/icons-material";
 import Variants from "./variants";
 import Options from "./options";
 import {
@@ -20,6 +24,9 @@ import {
 import { useRoundState } from "../../state/round";
 import useConfigurationQuery from "../../hooks/use-configuration-query";
 import { useStrongParams } from "../../../../hooks/use-strong-params";
+import { useCreateRoundMutation } from "../../hooks/use-create-round-mutation";
+import { OrderedItem } from "../../types/item";
+import { useActiveAssignment } from "../../hooks/use-active-assignment";
 
 const textFieldWithoutArrayStyles: SxProps = {
   "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button": {
@@ -38,11 +45,15 @@ function Configurator() {
 
   const { data: configuration } = useConfigurationQuery(itemId);
 
+  const activeAssignment = useActiveAssignment();
+  const { resetAssignment } = useRoundState();
+
   const formValues = useForm({
     defaultValues: configuration,
   });
 
   const { upsertConfigurationFor } = useRoundState();
+
   const navigate = useNavigate();
   const saveConfigurationToBasket = (data: Configuration) => {
     upsertConfigurationFor(+assignmentId, data);
@@ -59,6 +70,47 @@ function Configurator() {
   const incrementAmount = () => {
     formValues.setValue("amount", formValues.getValues("amount") + 1);
   };
+
+  const fastCheckout = () => {
+    let list = formValues.getValues();
+    const chosenOptions: Option[] = formValues
+      .getValues()
+      .options.filter((option) => option.defaultValue)
+      .map((option) => ({
+        id: option.id,
+        name: option.name,
+        defaultValue: option.defaultValue,
+      }));
+    const chosenVariants: SingleVariant[] = formValues
+      .getValues()
+      .variants.map(
+        (group) =>
+          group.variants.find(
+            (variant) => variant.id === group.defaultVariantId
+          )!
+      );
+
+    let orderedItem = {
+      item: list.item,
+      chosenVariants: chosenVariants,
+      chosenOptions: chosenOptions,
+      comment: list.comment,
+      amount: list.amount,
+    };
+    const orderedItems: OrderedItem[] = [];
+    orderedItems.push(orderedItem);
+    mutate({
+      assignmentId: activeAssignment.id,
+      orderedItems: orderedItems,
+    });
+  };
+
+  const { mutate } = useCreateRoundMutation({
+    onSuccess: () => {
+      navigate("/assignments");
+      resetAssignment(activeAssignment.id);
+    },
+  });
 
   return (
     <BaseLayout title="Konfigurator">
@@ -103,24 +155,25 @@ function Configurator() {
             </Stack>
             <Stack direction="row" spacing={1}>
               <Button
-                component={RouterLink}
-                to=".."
-                size="large"
-                variant="contained"
-                endIcon={<Cancel />}
-              >
-                Zurück
-              </Button>
-              <Button
                 fullWidth
                 size="large"
                 type="submit"
                 variant="contained"
                 endIcon={<ChevronRight />}
               >
-                Abschicken
+                Zur Runde hinzufügen
               </Button>
             </Stack>
+            <Button
+              fullWidth
+              color={"success"}
+              size="large"
+              onClick={() => fastCheckout()}
+              variant="contained"
+              endIcon={<DoubleArrow />}
+            >
+              Direkt bestellen
+            </Button>
           </Stack>
         </form>
       </FormProvider>

@@ -9,7 +9,7 @@ import { introspect } from "../../../state/introspection";
 import axios from "axios";
 
 const createOrder = introspect("Create new order", (assignment: Assignment) =>
-  axios.post("/api/order", { assignment }).then(res => res.data)
+  axios.post("/api/order", { assignment }).then((res) => res.data)
 );
 
 function AssignmentControl() {
