@@ -72,7 +72,6 @@ function Configurator() {
   };
 
   const fastCheckout = () => {
-
     //TODO Add validation here, if there is some validation needed in future (such as max char for comment).
     const chosenOptions: Option[] = formValues
       .getValues()
