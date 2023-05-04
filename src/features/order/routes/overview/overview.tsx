@@ -55,9 +55,6 @@ function Overview() {
         )}
       </Paper>
       <Stack mt={2} direction="row" spacing={1}>
-        <Button component={RouterLink} to="../items" variant="contained">
-          Zurück
-        </Button>
         <Button
           fullWidth
           disabled={isLoading || !elements.length}

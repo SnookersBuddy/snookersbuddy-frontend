@@ -5,7 +5,10 @@ import axios from "axios";
 
 const getConfiguration = introspect(
   "Get an item config",
-  ({ queryKey: [_, itemId], signal }: QueryFunctionContext): Promise<Configuration> =>
+  ({
+    queryKey: [_, itemId],
+    signal,
+  }: QueryFunctionContext): Promise<Configuration> =>
     axios
       .get(`/api/item/${itemId}/configuration`, { signal })
       .then((res) => res.data)

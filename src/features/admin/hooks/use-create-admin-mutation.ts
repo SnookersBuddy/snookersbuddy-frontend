@@ -5,7 +5,7 @@ import { introspect } from "../../../state/introspection";
 import axios from "axios";
 
 const createOption = introspect("Create an option", (option: Option) =>
-  axios.post(`/api/option`, option).then(res => res.data)
+  axios.post(`/api/option`, option).then((res) => res.data)
 );
 
 export function useCreateOptionMutation(
@@ -18,7 +18,7 @@ export function useCreateOptionMutation(
 }
 
 const createItem = introspect("Create an item", (item: CreateItemInput) =>
-  axios.post(`/api/item`, item).then(res => res.data)
+  axios.post(`/api/item`, item).then((res) => res.data)
 );
 
 export function useCreateItemMutation(
@@ -31,7 +31,7 @@ export function useCreateItemMutation(
 }
 
 const createVariant = introspect("Create a variant", (variant: Variant) =>
-  axios.post(`/api/variant`, variant).then(res => res.data)
+  axios.post(`/api/variant`, variant).then((res) => res.data)
 );
 
 export function useCreateVariantMutation(
@@ -45,7 +45,8 @@ export function useCreateVariantMutation(
 
 const createAssignment = introspect(
   "Create an assignment",
-  (assignment: Assignment) => axios.post(`/api/assignment`, assignment).then(res => res.data)
+  (assignment: Assignment) =>
+    axios.post(`/api/assignment`, assignment).then((res) => res.data)
 );
 
 export function useCreateAssignmentMutation(

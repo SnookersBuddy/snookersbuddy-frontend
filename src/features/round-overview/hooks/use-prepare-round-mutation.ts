@@ -5,7 +5,9 @@ import axios from "axios";
 const updateMarkRoundAsPrepared = introspect(
   "Mark round as prepared",
   (roundId: number) =>
-    axios.put(`/api/round/${roundId}/state`, { state: "PREPARED" }).then(res => res.data)
+    axios
+      .put(`/api/round/${roundId}/state`, { state: "PREPARED" })
+      .then((res) => res.data)
 );
 
 export function usePrepareRoundMutation(

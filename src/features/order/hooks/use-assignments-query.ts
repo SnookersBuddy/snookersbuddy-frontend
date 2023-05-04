@@ -1,7 +1,7 @@
 import {
   QueryFunctionContext,
   useQuery,
-  UseQueryOptions
+  UseQueryOptions,
 } from "@tanstack/react-query";
 import { Assignment } from "../types/assignment";
 import { introspect } from "../../../state/introspection";
@@ -21,7 +21,10 @@ export const assignmentsQueryOptions = {
 };
 
 export function useAssignmentsQuery(
-  options: Omit<UseQueryOptions<Assignment[], unknown, Assignment[], string[]>, 'queryFn' | 'queryKey'> = {}
+  options: Omit<
+    UseQueryOptions<Assignment[], unknown, Assignment[], string[]>,
+    "queryFn" | "queryKey"
+  > = {}
 ) {
   return useQuery({
     ...assignmentsQueryOptions,

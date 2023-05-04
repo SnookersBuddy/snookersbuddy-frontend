@@ -5,7 +5,7 @@ import { introspect } from "../../../state/introspection";
 import axios from "axios";
 
 const updateOption = introspect("Update an option", (option: Option) =>
-  axios.put(`/api/option/${option.id}`, option).then(res => res.data)
+  axios.put(`/api/option/${option.id}`, option).then((res) => res.data)
 );
 
 export function useUpdateOptionMutation(
@@ -18,7 +18,7 @@ export function useUpdateOptionMutation(
 }
 
 const updateItem = introspect("Update an item", (item: ItemData) =>
-  axios.put(`/api/item/${item.itemId}`, item).then(res => res.data)
+  axios.put(`/api/item/${item.itemId}`, item).then((res) => res.data)
 );
 
 export function useUpdateItemMutation(
@@ -31,7 +31,9 @@ export function useUpdateItemMutation(
 }
 
 const updateVariant = introspect("Update a variant", (variant: Variant) =>
-  axios.put(`/api/variant/${variant.variantGroup.id}`, variant).then(res => res.data)
+  axios
+    .put(`/api/variant/${variant.variantGroup.id}`, variant)
+    .then((res) => res.data)
 );
 
 export function useUpdateVariantMutation(
@@ -46,7 +48,9 @@ export function useUpdateVariantMutation(
 const updateAssignment = introspect(
   "Update an assignment",
   (assignment: Assignment) =>
-    axios.put(`/api/assignment/${assignment.id}`, assignment).then(res => res.data)
+    axios
+      .put(`/api/assignment/${assignment.id}`, assignment)
+      .then((res) => res.data)
 );
 
 export function useUpdateAssignmentMutation(

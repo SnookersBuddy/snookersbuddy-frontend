@@ -17,7 +17,8 @@ export function useDeleteOptionMutation(
 
 const deleteAssignment = introspect(
   "Delete an assignment",
-  (assignmentId: number) => axios.delete(`/api/assignment/${assignmentId}`).then(res => res.data)
+  (assignmentId: number) =>
+    axios.delete(`/api/assignment/${assignmentId}`).then((res) => res.data)
 );
 
 export function useDeleteAssignmentMutation(
@@ -30,7 +31,7 @@ export function useDeleteAssignmentMutation(
 }
 
 const deleteItem = introspect("Delete item", (itemId: number) =>
-  axios.delete(`/api/item/${itemId}`).then(res => res.data),
+  axios.delete(`/api/item/${itemId}`).then((res) => res.data)
 );
 
 export function useDeleteItemMutation(
@@ -43,7 +44,7 @@ export function useDeleteItemMutation(
 }
 
 const deleteVariant = introspect("Delete a variant", (variantId: number) =>
-  axios.delete(`/api/variant/${variantId}`).then(res => res.data)
+  axios.delete(`/api/variant/${variantId}`).then((res) => res.data)
 );
 
 export function useDeleteVariantMutation(

@@ -7,9 +7,9 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import { Link as RouterLink, useMatch } from "react-router-dom";
+import { Link as RouterLink, useMatch, useNavigate } from "react-router-dom";
 import { theme } from "../../lib";
-import { Home } from "@mui/icons-material";
+import { ArrowBack, Home } from "@mui/icons-material";
 
 type FixedContentLayoutProps = {
   title: string;
@@ -32,12 +32,32 @@ function FixedContentLayout({
 }: FixedContentLayoutProps) {
   const isAnwendungsauswahl = useMatch("/");
 
+  const navigate = useNavigate();
+
+  const navigateBack = () => {
+    navigate(-1);
+  };
+
   return (
     <FixedContentWrapper>
       <AppBar
         sx={{ py: 1, backgroundColor: "primary.main" }}
         position="relative"
       >
+        {!isAnwendungsauswahl && (
+          <IconButton
+            aria-label="back"
+            onClick={navigateBack}
+            sx={{
+              position: "absolute",
+              left: theme.spacing(1),
+              top: "50%",
+              transform: "translateY(-50%)",
+            }}
+          >
+            <ArrowBack />
+          </IconButton>
+        )}
         <Container maxWidth="xs">
           <Typography textAlign="center" variant="h6">
             {title}

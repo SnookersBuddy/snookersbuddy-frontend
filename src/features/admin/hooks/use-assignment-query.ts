@@ -5,7 +5,10 @@ import axios from "axios";
 
 const getAssignment = introspect(
   "Get an assignment",
-  ({ queryKey: [_, assignmentId], signal }: QueryFunctionContext): Promise<Assignment> =>
+  ({
+    queryKey: [_, assignmentId],
+    signal,
+  }: QueryFunctionContext): Promise<Assignment> =>
     axios
       .get(`/api/assignment/${assignmentId}`, { signal })
       .then((res) => res.data)
